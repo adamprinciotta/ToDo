@@ -1,0 +1,18 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.fullPage {
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: inline-block;
+}
+
+.listItems{
+  color:aqua;
+  font-size: 14px;
+}
