@@ -1,9 +1,13 @@
 .task{
     display: flex;
     align-items: center;
+    background-color: lightgray;
+    border-radius: 20px;
+    padding: 1px 10px;
+    min-width: 200px;
 }
 
 .taskName{
-    color: white;
+    color: black;
     font-size: 30px;
 }

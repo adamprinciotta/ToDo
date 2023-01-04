@@ -13,19 +13,12 @@ function Task(props) {
 
     return(
         <div>
-            {/* {props.list.map((item, index) => {
-  return (
-    <div className="listItems" key={index}>
-      {item.name}
-    </div>
-  );
-})} */}
             {/* Mapping through each item in the task list */}
             {props.list.map((item, index) => {
             // Must return the jsx that I want to render
           return (
-            //The task
-            <div key={index} className="task">
+            //The whole task
+            <><div key={index} className="task">
                 {/* Checkbox input */}
                 <input 
                 type="checkbox"
@@ -37,6 +30,8 @@ function Task(props) {
                     textDecoration: item.checked ? "line-through" : "none", paddingLeft: "20px" }}>{item.name}
                 </div>
             </div>
+            <div className='spacer' style={{paddingTop: "15px"}}></div>
+            </>
           );
         })}
       </div>

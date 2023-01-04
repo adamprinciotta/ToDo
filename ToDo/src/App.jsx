@@ -24,19 +24,13 @@ function App() {
 
   return (
     <div className="fullPage">
-      <Task list={list} setList={setList}/>
-      <div className="header">
-      To Do List 
-      {/* {list.map((item, index) => {
-              return (
-                <div className="listItems" key={index}>
-                  {item.name}
-                </div>
-              );
-            })} */}
-      </div>
       
-      <Button onClick={addTask}>Add Task</Button>
+      <div className="header">
+      To Do List
+      </div>
+      <Task list={list} setList={setList}/>
+      
+      <Button onClick={addTask} style={{borderColor: "black"}}>Add Task</Button>
 
 
       {/* displayTasks={displayTasks} */}
