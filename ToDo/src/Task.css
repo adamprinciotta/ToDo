@@ -1,0 +1,9 @@
+.task{
+    display: flex;
+    align-items: center;
+}
+
+.taskName{
+    color: white;
+    font-size: 30px;
+}

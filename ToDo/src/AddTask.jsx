@@ -18,12 +18,13 @@ function AddTask(props) {
     function handleSubmit(event) {
         event.preventDefault()
         console.log(props.add)
+        const newItem = { name: task, checked: false}
         // props.setList(prev => [...prev, task.toString()])
-        props.setList(props.list.concat(task))
+        props.setList(props.list.concat(newItem))
         console.log("Submitted")
-        props.setAdd(false)
+        //props.setAdd(false)
         //console.log(props.list)
-        props.displayTasks()
+        //props.displayTasks()
         props.checkListSize()
     }
 
