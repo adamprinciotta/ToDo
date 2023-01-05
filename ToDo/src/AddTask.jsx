@@ -1,8 +1,13 @@
 import { useState } from 'react'
 import Button from 'react-bootstrap/Button'
+import Dropdown from 'react-bootstrap/Dropdown';
+import 'bootstrap/dist/css/bootstrap.css';
+import './AddTask.css'
 
 
 function AddTask(props) {
+
+
 
     const [task, setTask] = useState('')
     const [sun, setSun] = useState(false)
@@ -13,10 +18,12 @@ function AddTask(props) {
     const [fri, setFri] = useState(false)
     const [sat, setSat] = useState(false)
 
+    const [sections, setSections] = useState([<Dropdown.Item onClick={()=>handleSectionClick(0)}>Work</Dropdown.Item>, 
+    <Dropdown.Item onClick={()=>handleSectionClick(1)}>Personal</Dropdown.Item>, 
+    <Dropdown.Item onClick={()=>handleSectionClick(2)}>Add New</Dropdown.Item>])
+    const [currentSection, setCurrentSection] = useState('Work')
+    
 
-    function addTheTask(){
-        console.log(added)
-    }
 
     function handleDayClicked(event){
         if(event.target.id === 'sun'){
@@ -49,34 +56,50 @@ function AddTask(props) {
     function handleSubmit(event) {
         event.preventDefault()
         if(task != ''){
-            console.log(props.add)
+            // console.log(props.add)
             const newItem = { name: task, checked: false}
             props.setList(props.list.concat(newItem))
-            console.log("Submitted")
+            // console.log("Submitted")
             props.checkListSize()
+            props.setAdd(false)
         }
         else{
             alert("You cannot add an empty task")
         }
     }
 
+    function handleCancel() {
+        setTask('')
+        props.setAdd(false)
+    }
+
+    function handleSectionClick(item) {
+        //if they select the Add New section from the dropdown then bring up the option to type a new one
+        if (sections[item].props.children === sections[sections.length - 1].props.children) {
+            console.log("hello")
+          }
+          //updates the header for the dropdown and keeps track of which section should be saved for the task
+          else{
+            setCurrentSection(sections[item].props.children)
+          }
+      }
+
+
     return(
     <>
+    
     <div className="taskModal" style={{paddingTop: "15px"}}> 
+        <Button onClick={handleCancel} className="cancel">X</Button>
         <form onSubmit={handleSubmit}>
             <label>
                 Task:
-                <input type="text" value={task} onChange={taskChange}  />
+                <input type="text" className="taskInput" value={task} onChange={taskChange}  />
             </label>
             <input type="submit" value="Submit"/>
         </form>
 
         <div className="repeat">What days do you want this task to repeat?</div>
         <div className="days">
-            {/* <ButtonGroup>
-                <Button> Group 1 </Button>
-                <Button> Group 2 </Button>
-            </ButtonGroup> */}
             <Button className='sun' id="sun" onClick={handleDayClicked} style={{ backgroundColor: sun ? "lightgreen" : "red" }}>S</Button>
             <Button className='mon' id="mon" onClick={handleDayClicked} style={{ backgroundColor: mon ? "lightgreen" : "red" }}>M</Button>
             <Button className='tues' id="tues" onClick={handleDayClicked} style={{ backgroundColor: tues ? "lightgreen" : "red" }}>T</Button>
@@ -84,6 +107,21 @@ function AddTask(props) {
             <Button className='thur' id="thur" onClick={handleDayClicked} style={{ backgroundColor: thur ? "lightgreen" : "red" }}>TR</Button>
             <Button className='fri' id="fri" onClick={handleDayClicked} style={{ backgroundColor: fri ? "lightgreen" : "red" }}>F</Button>
             <Button className='sat' id="sat" onClick={handleDayClicked} style={{ backgroundColor: sat ? "lightgreen" : "red" }}>SA</Button>
+        </div>
+
+        <div className="section">
+            
+            <Dropdown id = "dropdownBtn" className="dropdownBtn" title={"Example"}>
+                <Dropdown.Toggle id="dropdown-autoclose-true " className="dropdownBtn">
+                {currentSection}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    {sections.map((index) => {
+                        console.log(index.props.children)
+                        return(index)
+                    })}
+                </Dropdown.Menu>
+            </Dropdown>
         </div>
     </div>
     </>

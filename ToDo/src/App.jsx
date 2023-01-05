@@ -3,6 +3,9 @@ import './App.css'
 import Button from 'react-bootstrap/Button'
 import AddTask from './AddTask.jsx'
 import Task from './Task.jsx'
+import AddTaskModal from './AddTaskModal'
+
+// import Modal from 'react-bootstrap/Modal';
 
 function App() {
   const [list, setList] = useState([{name: 'test', checked: false}])
@@ -23,21 +26,24 @@ function App() {
   }
 
   return (
+    <>
+    
     <div className="fullPage">
-      
       <div className="header">
       To Do List
       </div>
       <Task list={list} setList={setList}/>
       
-      <Button onClick={addTask} style={{borderColor: "black"}}>Add Task</Button>
-
+      <Button onClick={addTask} className="addTaskBtn" style={{borderColor: "black"}}>Add Task</Button>
+      {/* <AddTaskModal show={add} onHide={() => setAdd(false)}/> */}
 
       {/* displayTasks={displayTasks} */}
       {add && (<AddTask list={list} setList={setList} add={add} setAdd={setAdd}  checkListSize={checkListSize}/>)}
       
 
     </div>
+    
+    </>
   )
 }
 

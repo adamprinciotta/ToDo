@@ -22,7 +22,7 @@ function Task(props) {
                 {/* Checkbox input */}
                 <input 
                 type="checkbox"
-                style={{ height: "30px", width: "30px" }}
+                style={{ height: "30px", width: "30px"}}
                 checked={item.checked}
                 onChange={() => handleChecked(index)}
                 /> 

@@ -44,3 +44,31 @@
     background-color: white;
     text-align: center;
 }
+.cancel{
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 5px 0px;
+    margin: 5px 5px;
+    background-color: red;
+    color: white;
+}
+
+.taskInput{
+    border: 0;
+    background: transparent;
+    border-bottom: 1px solid black;
+    outline: none;
+    margin-right: 5px; 
+    /* May remove margin-right later if I move the submit button */
+}
+
+#dropdownBtn[aria-labelledby = ddown] {
+    background-color: red;
+    color: orange;
+    max-width: 80px;
+    border-radius: 0;
+    margin: 0;
+  }
