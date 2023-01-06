@@ -6,9 +6,6 @@ import './AddTask.css'
 
 
 function AddTask(props) {
-
-
-
     const [task, setTask] = useState('')
     const [sun, setSun] = useState(false)
     const [mon, setMon] = useState(false)
@@ -23,7 +20,8 @@ function AddTask(props) {
     <Dropdown.Item onClick={()=>handleSectionClick(2)}>Add New</Dropdown.Item>])
     const [currentSection, setCurrentSection] = useState('Work')
     
-
+    const [newSection, setNewSection] = useState(false)
+    const [newSectionText, setNewSectionText] = useState('')
 
     function handleDayClicked(event){
         if(event.target.id === 'sun'){
@@ -51,7 +49,7 @@ function AddTask(props) {
 
     const taskChange = event =>{
         setTask(event.target.value)
-      }
+    }
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -74,15 +72,70 @@ function AddTask(props) {
     }
 
     function handleSectionClick(item) {
+        console.log("sections item props children: " + sections[item].props.children)
         //if they select the Add New section from the dropdown then bring up the option to type a new one
-        if (sections[item].props.children === sections[sections.length - 1].props.children) {
-            console.log("hello")
+        if (sections[item].props.children === "Add New") {
+            console.log(sections[item].props.children + "=== Add New")
+            setNewSection(true)
           }
           //updates the header for the dropdown and keeps track of which section should be saved for the task
           else{
             setCurrentSection(sections[item].props.children)
           }
       }
+
+    // function handleNewSection(){
+    //     const newSectionList = [...sections.slice(0, sections.length - 1), 
+    //     <Dropdown.Item onClick={()=>handleSectionClick(sections.length - 1)}>{newSectionText}</Dropdown.Item>, 
+    //     <Dropdown.Item onClick={()=>handleSectionClick(sections.length)}>Add New</Dropdown.Item>]
+    //     setSections(newSectionList)
+    //     setNewSection(false)
+    //     setNewSectionText("")
+    //     console.log(sections)
+    //     console.log("-----------------------------------")
+    // }
+
+    // function handleNewSection(){
+    //     const newSectionList = [...sections.slice(0, sections.length - 1), 
+    //     <Dropdown.Item onClick={()=>handleSectionClick(sections.length - 2)}>{newSectionText}</Dropdown.Item>, 
+    //     <Dropdown.Item onClick={()=>handleSectionClick(sections.length - 1)}>Add New</Dropdown.Item>]
+    //     console.log("Index that the new section is going in: " + sections.length - 2)
+    //     console.log("New section list: ")
+    //     {newSectionList.map((index) => {
+    //         console.log(index.props.children)
+    //     })}
+    //     setSections(newSectionList)
+    //     setNewSection(false)
+    //     setNewSectionText("")
+    //   }
+
+    //   function handleNewSection(){
+    //     const newSectionList = [...sections.slice(0, sections.length - 1), 
+    //     <Dropdown.Item onClick={()=>handleSectionClick(sections.length - 1)}>{newSectionText}</Dropdown.Item>, 
+    //     <Dropdown.Item onClick={()=>handleSectionClick(sections.length)}>Add New</Dropdown.Item>]
+    //     setSections(newSectionList)
+    //     setNewSection(false)
+    //     setNewSectionText("")
+    //   }
+
+    function handleNewSection(){
+        const newSectionList = [...sections.slice(0, sections.length), 
+        <Dropdown.Item onClick={()=>handleSectionClick(sections.length - 2)}>{newSectionText}</Dropdown.Item>, 
+        <Dropdown.Item onClick={()=>handleSectionClick(sections.length - 1)}>Add New</Dropdown.Item>]
+        setSections(newSectionList)
+        setNewSection(false)
+        setNewSectionText("")
+        
+        const testsectionlist=[...sections.slice(0, sections.length -1)]
+        console.log("sections.slice" + testsectionlist.map(index =>{
+            console.log(index.props.children)
+        }))
+        console.log(sections)
+      }
+
+    const handleNewSectionTextChange = event =>{
+        setNewSectionText(event.target.value)
+    }
 
 
     return(
@@ -117,11 +170,18 @@ function AddTask(props) {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                     {sections.map((index) => {
-                        console.log(index.props.children)
+                        // console.log(index.props.children)
                         return(index)
                     })}
                 </Dropdown.Menu>
             </Dropdown>
+            {newSection && <form onSubmit={handleNewSection}>
+            <label>
+                New Section:
+                <input type="text" className="taskInput" value={newSectionText} onChange={handleNewSectionTextChange}  />
+            </label>
+            <input type="submit" value="Submit"/>
+        </form>}
         </div>
     </div>
     </>
