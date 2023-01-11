@@ -15,9 +15,10 @@ function AddTask(props) {
     const [fri, setFri] = useState(false)
     const [sat, setSat] = useState(false)
 
-    const [sections, setSections] = useState([<Dropdown.Item onClick={()=>handleSectionClick(0)}>Work</Dropdown.Item>, 
-    <Dropdown.Item onClick={()=>handleSectionClick(1)}>Personal</Dropdown.Item>, 
-    <Dropdown.Item onClick={()=>handleSectionClick(2)}>Add New</Dropdown.Item>])
+    const [sections, setSections] = useState([<Dropdown.Item onClick={()=>handleSectionClick("Work")}>Work</Dropdown.Item>, 
+    <Dropdown.Item onClick={()=>handleSectionClick("Personal")}>Personal</Dropdown.Item>, 
+    <Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>])
+
     const [currentSection, setCurrentSection] = useState('Work')
     
     const [newSection, setNewSection] = useState(false)
@@ -72,71 +73,39 @@ function AddTask(props) {
     }
 
     function handleSectionClick(item) {
-        console.log("sections item props children: " + sections[item].props.children)
+        console.log("sections item props children: " + item)
         //if they select the Add New section from the dropdown then bring up the option to type a new one
-        if (sections[item].props.children === "Add New") {
-            console.log(sections[item].props.children + "=== Add New")
+        if (item === "Add New") {
+            console.log(item + "=== Add New")
             setNewSection(true)
           }
           //updates the header for the dropdown and keeps track of which section should be saved for the task
           else{
-            setCurrentSection(sections[item].props.children)
+            setCurrentSection(item)
           }
       }
 
-    // function handleNewSection(){
-    //     const newSectionList = [...sections.slice(0, sections.length - 1), 
-    //     <Dropdown.Item onClick={()=>handleSectionClick(sections.length - 1)}>{newSectionText}</Dropdown.Item>, 
-    //     <Dropdown.Item onClick={()=>handleSectionClick(sections.length)}>Add New</Dropdown.Item>]
-    //     setSections(newSectionList)
-    //     setNewSection(false)
-    //     setNewSectionText("")
-    //     console.log(sections)
-    //     console.log("-----------------------------------")
-    // }
-
-    // function handleNewSection(){
-    //     const newSectionList = [...sections.slice(0, sections.length - 1), 
-    //     <Dropdown.Item onClick={()=>handleSectionClick(sections.length - 2)}>{newSectionText}</Dropdown.Item>, 
-    //     <Dropdown.Item onClick={()=>handleSectionClick(sections.length - 1)}>Add New</Dropdown.Item>]
-    //     console.log("Index that the new section is going in: " + sections.length - 2)
-    //     console.log("New section list: ")
-    //     {newSectionList.map((index) => {
-    //         console.log(index.props.children)
-    //     })}
-    //     setSections(newSectionList)
-    //     setNewSection(false)
-    //     setNewSectionText("")
-    //   }
-
-    //   function handleNewSection(){
-    //     const newSectionList = [...sections.slice(0, sections.length - 1), 
-    //     <Dropdown.Item onClick={()=>handleSectionClick(sections.length - 1)}>{newSectionText}</Dropdown.Item>, 
-    //     <Dropdown.Item onClick={()=>handleSectionClick(sections.length)}>Add New</Dropdown.Item>]
-    //     setSections(newSectionList)
-    //     setNewSection(false)
-    //     setNewSectionText("")
-    //   }
 
     function handleNewSection(){
-        const newSectionList = [...sections.slice(0, sections.length), 
-        <Dropdown.Item onClick={()=>handleSectionClick(sections.length - 2)}>{newSectionText}</Dropdown.Item>, 
-        <Dropdown.Item onClick={()=>handleSectionClick(sections.length - 1)}>Add New</Dropdown.Item>]
+        //gets the new list without the Add New object
+        const newSectionList = [...sections.slice(0, sections.length-1)]
+        //adds the new object that they want to add
+        newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick(newSectionText)}>{newSectionText}</Dropdown.Item>)
+        //then adds in the Add new object again
+        newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>)
+
+        //updates the dropdown list
         setSections(newSectionList)
+        //sets it so the new section should not show up
         setNewSection(false)
+        //resets the new section text so when they add a new section it doesn't have the last section they wanted
         setNewSectionText("")
         
-        const testsectionlist=[...sections.slice(0, sections.length -1)]
-        console.log("sections.slice" + testsectionlist.map(index =>{
-            console.log(index.props.children)
-        }))
-        console.log(sections)
       }
 
     const handleNewSectionTextChange = event =>{
         setNewSectionText(event.target.value)
     }
-
 
     return(
     <>
