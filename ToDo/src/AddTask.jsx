@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -18,6 +18,38 @@ function AddTask(props) {
     const [sections, setSections] = useState([<Dropdown.Item onClick={()=>handleSectionClick("Work")}>Work</Dropdown.Item>, 
     <Dropdown.Item onClick={()=>handleSectionClick("Personal")}>Personal</Dropdown.Item>, 
     <Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>])
+
+    const [newSectionTest, setNewSectionTest] = useState([])
+
+
+    //function addSections(){
+        useEffect(() =>{
+            console.log("USE EFFECT")
+            //gets the new list without the Add New object
+            const newSectionList = [...sections.slice(0, sections.length-1)]
+            for(var x = 0; x < props.storedSections.length; x++){
+                console.log(props.storedSections[x])
+                if(sections.indexOf(props.storedSections[x]) == -1)
+                console.log("NOT ALREADY IN THE LIST")
+                //adds the new object that they want to add
+                newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick(props.storedSections[x])}>{props.storedSections[x]}</Dropdown.Item>)
+            }
+            
+            //then adds in the Add new object again
+            newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>)
+            // console.log("NEW SECTION LIST: ")
+            // newSectionList.map((index) =>{
+            //     console.log(index)
+            // })
+            
+            setSections[newSectionList]
+            setNewSectionTest(newSectionList)
+            console.log("NEW SECTION LIST:")
+            // newSectionList.map((index) =>{
+            //     console.log(index)
+            // })
+        }, [])
+    //}
 
     const [currentSection, setCurrentSection] = useState('Work')
     
@@ -73,10 +105,10 @@ function AddTask(props) {
     }
 
     function handleSectionClick(item) {
-        console.log("sections item props children: " + item)
+        console.log("section click title clicked: " + item)
         //if they select the Add New section from the dropdown then bring up the option to type a new one
         if (item === "Add New") {
-            console.log(item + "=== Add New")
+            console.log(item + " === Add New")
             setNewSection(true)
           }
           //updates the header for the dropdown and keeps track of which section should be saved for the task
@@ -100,7 +132,11 @@ function AddTask(props) {
         setNewSection(false)
         //resets the new section text so when they add a new section it doesn't have the last section they wanted
         setNewSectionText("")
-        
+
+
+
+        //Updates the stored sections
+        props.setStoredSections([...props.storedSections, newSectionText])
       }
 
     const handleNewSectionTextChange = event =>{
@@ -138,7 +174,7 @@ function AddTask(props) {
                 {currentSection}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                    {sections.map((index) => {
+                    {newSectionTest.map((index) => {
                         // console.log(index.props.children)
                         return(index)
                     })}

@@ -14,6 +14,8 @@ function App() {
   const [list, setList] = useState([{name: 'test', checked: false}])
   const [add, setAdd] = useState(false)
 
+  const [storedSections, setStoredSections] = useState(['test1', 'test2'])
+
 
   // function handleSectionClick(item) {
   //   console.log("sections item props children: " + item)
@@ -59,7 +61,7 @@ function App() {
       {/* <AddTaskModal show={add} onHide={() => setAdd(false)}/> */}
 
       {/* displayTasks={displayTasks} */}
-      {add && (<AddTask list={list} setList={setList} add={add} setAdd={setAdd} checkListSize={checkListSize} />)}
+      {add && (<AddTask list={list} setList={setList} add={add} setAdd={setAdd} checkListSize={checkListSize} storedSections={storedSections} setStoredSections={setStoredSections}/>)}
       
 
     </div>
