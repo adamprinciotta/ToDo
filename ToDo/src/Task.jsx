@@ -29,6 +29,9 @@ function Task(props) {
                 <div className="taskName" style={{
                     textDecoration: item.checked ? "line-through" : "none", paddingLeft: "20px" }}>{item.name}
                 </div>
+                <div className="sectionName" style={{position: 'relative', right: '-50px'}}>
+                  {item.section}
+                </div>
             </div>
             <div className='spacer' style={{paddingTop: "15px"}}></div>
             </>

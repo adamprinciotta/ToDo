@@ -62,11 +62,6 @@ useEffect(() =>{
     
     //then adds in the Add new object again
     newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>)
-
-    console.log("This is new seciton list : ")
-    newSectionList.map((index) => {
-        console.log(index)
-    })
     // setSections(newSectionList)
     setNewSectionTest(newSectionList)
 }, [props.storedSections, sections])
@@ -109,7 +104,7 @@ useEffect(() =>{
         event.preventDefault()
         if(task != ''){
             // console.log(props.add)
-            const newItem = { name: task, checked: false}
+            const newItem = { name: task, checked: false, section: currentSection}
             props.setList(props.list.concat(newItem))
             // console.log("Submitted")
             props.checkListSize()
@@ -151,6 +146,7 @@ useEffect(() =>{
 
         //updates the dropdown list
         //setSections(newSectionList)
+
         //sets it so the new section should not show up
         setNewSection(false)
         //resets the new section text so when they add a new section it doesn't have the last section they wanted
