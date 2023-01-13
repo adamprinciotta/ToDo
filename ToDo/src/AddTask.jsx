@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect} from 'react'
 import Button from 'react-bootstrap/Button'
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -22,34 +22,55 @@ function AddTask(props) {
     const [newSectionTest, setNewSectionTest] = useState([])
 
 
-    //function addSections(){
-        useEffect(() =>{
-            console.log("USE EFFECT")
-            //gets the new list without the Add New object
-            const newSectionList = [...sections.slice(0, sections.length-1)]
-            for(var x = 0; x < props.storedSections.length; x++){
-                console.log(props.storedSections[x])
-                if(sections.indexOf(props.storedSections[x]) == -1)
-                console.log("NOT ALREADY IN THE LIST")
-                //adds the new object that they want to add
-                newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick(props.storedSections[x])}>{props.storedSections[x]}</Dropdown.Item>)
-            }
+//     //function addSections(){
+//         useEffect(() =>{
+//             console.log("USE EFFECT")
+//             //gets the new list without the Add New object
+//             let newSectionList = [...sections.slice(0, sections.length-1)]
+//             for(let x = 0; x < props.storedSections.length; x++){
+//                 console.log(props.storedSections[x])
+//                 if(sections.indexOf(props.storedSections[x]) == -1)
+//                 console.log("NOT ALREADY IN THE LIST")
+//                 //adds the new object that they want to add
+//                 newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick(props.storedSections[x])}>{props.storedSections[x]}</Dropdown.Item>)
+//             }
             
-            //then adds in the Add new object again
-            newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>)
-            // console.log("NEW SECTION LIST: ")
-            // newSectionList.map((index) =>{
-            //     console.log(index)
-            // })
+//             //then adds in the Add new object again
+//             newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>)
+//             // console.log("NEW SECTION LIST: ")
+//             // newSectionList.map((index) =>{
+//             //     console.log(index)
+//             // })
             
-            setSections[newSectionList]
-            setNewSectionTest(newSectionList)
-            console.log("NEW SECTION LIST:")
-            // newSectionList.map((index) =>{
-            //     console.log(index)
-            // })
-        }, [])
-    //}
+//             setSections(newSectionList)
+//             setNewSectionTest(newSectionList)
+//             console.log("NEW SECTION LIST:")
+//             // newSectionList.map((index) =>{
+//             //     console.log(index)
+//             // })
+//         }, [])
+//    // }
+
+useEffect(() =>{
+    //gets the new list without the Add New object
+    let newSectionList = [...sections.slice(0, sections.length-1)]
+    for(let x = 0; x < props.storedSections.length; x++){
+        if(sections.indexOf(props.storedSections[x]) == -1)
+        //adds the new object that they want to add
+        newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick(props.storedSections[x])}>{props.storedSections[x]}</Dropdown.Item>)
+    }
+    
+    //then adds in the Add new object again
+    newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>)
+
+    console.log("This is new seciton list : ")
+    newSectionList.map((index) => {
+        console.log(index)
+    })
+    // setSections(newSectionList)
+    setNewSectionTest(newSectionList)
+}, [props.storedSections, sections])
+
 
     const [currentSection, setCurrentSection] = useState('Work')
     
@@ -119,19 +140,25 @@ function AddTask(props) {
 
 
     function handleNewSection(){
+        console.log("handling new section")
         //gets the new list without the Add New object
-        const newSectionList = [...sections.slice(0, sections.length-1)]
+        //const newSectionList = [...sections.slice(0, sections.length-1)]
+        const newSectionList = [...newSectionTest.slice(0, newSectionTest.length-1)]
         //adds the new object that they want to add
         newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick(newSectionText)}>{newSectionText}</Dropdown.Item>)
         //then adds in the Add new object again
         newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>)
 
         //updates the dropdown list
-        setSections(newSectionList)
+        //setSections(newSectionList)
         //sets it so the new section should not show up
         setNewSection(false)
         //resets the new section text so when they add a new section it doesn't have the last section they wanted
         setNewSectionText("")
+
+        console.log("this is the newSection list in the handle new section")
+        console.log(newSectionList)
+        setNewSectionTest(newSectionList)
 
 
 
