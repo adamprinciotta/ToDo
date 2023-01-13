@@ -11,7 +11,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 
 function App() {
-  const [list, setList] = useState([{name: 'test', checked: false, section: ''}])
+  const [list, setList] = useState([{name: 'test', checked: false, section: '', days: '0000000'}])
   const [add, setAdd] = useState(false)
 
   const [storedSections, setStoredSections] = useState(['test1', 'test2'])

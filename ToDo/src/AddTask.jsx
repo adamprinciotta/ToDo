@@ -15,6 +15,8 @@ function AddTask(props) {
     const [fri, setFri] = useState(false)
     const [sat, setSat] = useState(false)
 
+    let daysTracker = '0000000'
+
     const [sections, setSections] = useState([<Dropdown.Item onClick={()=>handleSectionClick("Work")}>Work</Dropdown.Item>, 
     <Dropdown.Item onClick={()=>handleSectionClick("Personal")}>Personal</Dropdown.Item>, 
     <Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>])
@@ -104,7 +106,44 @@ useEffect(() =>{
         event.preventDefault()
         if(task != ''){
             // console.log(props.add)
-            const newItem = { name: task, checked: false, section: currentSection}
+            if(sun){
+                let newStr = daysTracker.split("")
+                newStr.splice(0, 1, '1')
+                daysTracker = newStr.join("")
+            }
+            if(mon){
+                let newStr = daysTracker.split("")
+                newStr.splice(1, 1, '1')
+                daysTracker = newStr.join("")
+            }
+            if(tues){
+                let newStr = daysTracker.split("")
+                newStr.splice(2, 1, '1')
+                daysTracker = newStr.join("")
+            }
+            if(wed){
+                let newStr = daysTracker.split("")
+                newStr.splice(3, 1, '1')
+                daysTracker = newStr.join("")
+            }
+            if(thur){
+                let newStr = daysTracker.split("")
+                newStr.splice(4, 1, '1')
+                daysTracker = newStr.join("")
+            }
+            if(fri){
+                let newStr = daysTracker.split("")
+                newStr.splice(5, 1, '1')
+                daysTracker = newStr.join("")
+            }
+            if(sat){
+                let newStr = daysTracker.split("")
+                newStr.splice(6, 1, '1')
+                daysTracker = newStr.join("")
+            }
+            console.log(daysTracker)
+
+            const newItem = { name: task, checked: false, section: currentSection, days: daysTracker}
             props.setList(props.list.concat(newItem))
             // console.log("Submitted")
             props.checkListSize()
