@@ -4,8 +4,13 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.css';
 import './AddTask.css'
 
+import TimePicker from 'react-time-picker'
+
 
 function AddTask(props) {
+
+    const [time, setTime] = useState('10:00');
+
     const [task, setTask] = useState('')
     const [sun, setSun] = useState(false)
     const [mon, setMon] = useState(false)
@@ -210,6 +215,7 @@ useEffect(() =>{
     
     <div className="taskModal" style={{paddingTop: "15px"}}> 
         <Button onClick={handleCancel} className="cancel">X</Button>
+
         <form onSubmit={handleSubmit}>
             <label>
                 Task:
@@ -230,7 +236,7 @@ useEffect(() =>{
         </div>
 
         <div className="section">
-            
+        <TimePicker value = {time} onChange = {setTime}/>
             <Dropdown id = "dropdownBtn" className="dropdownBtn" title={"Example"}>
                 <Dropdown.Toggle id="dropdown-autoclose-true " className="dropdownBtn">
                 {currentSection}
