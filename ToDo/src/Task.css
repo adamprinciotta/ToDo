@@ -4,10 +4,37 @@
     background-color: lightgray;
     border-radius: 20px;
     padding: 1px 10px;
-    min-width: 200px;
+    width: 60vw;
 }
 
 .taskName{
     color: black;
-    font-size: 30px;
+    font-size: 25px;
+}
+
+.taskContainer{
+    display: flex;
+    width: 80vw;
+    min-height: 100px;
+    background-color: aqua;
+}
+
+.sectionName{
+    display: flex;
+    align-items: center;
+    background-color: lightgray;
+    border-radius: 20px;
+    padding: 1px 10px;
+    width: 200px;
+    flex-wrap: wrap;
+    font-size: 20px;
+    font-weight: bold;
+    color: teal;
+     
+}
+
+.checkboxStyle{
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
 }
