@@ -4,11 +4,50 @@ import Button from 'react-bootstrap/Button'
 import AddTask from './AddTask.jsx'
 import Task from './Task.jsx'
 import AddTaskModal from './AddTaskModal'
+//import SignIn from './SignIn'
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.css';
 
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import 'firebase/compat/auth';
+//import 'firebase/analytics';
+
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+
+
+
+
+
+
+firebase.initializeApp({
+  apiKey: "AIzaSyCHxPV3qdlMiczHRksKE8oi7ZvYu7ZsOPU",
+  authDomain: "todo-c99c9.firebaseapp.com",
+  projectId: "todo-c99c9",
+  storageBucket: "todo-c99c9.appspot.com",
+  messagingSenderId: "777472247932",
+  appId: "1:777472247932:web:2ea24b017159da881421f9",
+  measurementId: "G-CKYMJWZWPP"
+})
+const auth = firebase.auth();
+const firestore = firebase.firestore();
+
 // import Modal from 'react-bootstrap/Modal';
 
+function SignIn() {
+  const signInWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider);
+  }
+
+  return (
+    <>
+      <button className="sign-in" onClick={signInWithGoogle}>Sign in with Google</button>
+    </>
+  )
+
+}
 
 function App() {
   const [list, setList] = useState([{name: 'test', checked: false, section: '', days: '0000000'}])
@@ -16,6 +55,7 @@ function App() {
 
   const [storedSections, setStoredSections] = useState(['test1', 'test2'])
 
+  const [user] = useAuthState(auth)
 
   // function handleSectionClick(item) {
   //   console.log("sections item props children: " + item)
@@ -48,26 +88,32 @@ function App() {
     setAdd(true)
   }
 
+
+
   return (
     <>
+    <h1>Hi</h1>
+    <section>
+      {user ? 
+      <div className="fullPage">
+        <div className="header">
+        To Do List
+        </div>
+        <Task list={list} setList={setList}/>
+        
+        <Button onClick={addTask} className="addTaskBtn" style={{borderColor: "black"}}>Add Task</Button>
+        {/* <AddTaskModal show={add} onHide={() => setAdd(false)}/> */}
+
+        {/* displayTasks={displayTasks} */}
+        {add && (<AddTask list={list} setList={setList} add={add} setAdd={setAdd} checkListSize={checkListSize} storedSections={storedSections} setStoredSections={setStoredSections}/>)}
+      </div> : <SignIn/>}
+    </section>
     
-    <div className="fullPage">
-      <div className="header">
-      To Do List
-      </div>
-      <Task list={list} setList={setList}/>
-      
-      <Button onClick={addTask} className="addTaskBtn" style={{borderColor: "black"}}>Add Task</Button>
-      {/* <AddTaskModal show={add} onHide={() => setAdd(false)}/> */}
-
-      {/* displayTasks={displayTasks} */}
-      {add && (<AddTask list={list} setList={setList} add={add} setAdd={setAdd} checkListSize={checkListSize} storedSections={storedSections} setStoredSections={setStoredSections}/>)}
-      
-
-    </div>
     
     </>
   )
 }
+
+
 
 export default App
