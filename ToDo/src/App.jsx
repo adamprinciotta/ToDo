@@ -16,6 +16,8 @@ import 'firebase/compat/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
+import GrabData from './GrabData';
+
 
 
 
@@ -48,6 +50,14 @@ function SignIn() {
   )
 
 }
+
+function SignOut(){
+  return auth.currentUser && (
+    <button onClick={() => auth.signOut()}>Sign Out</button>
+  )
+}
+
+
 
 function App() {
   const [list, setList] = useState([{name: 'test', checked: false, section: '', days: '0000000'}])
@@ -96,6 +106,8 @@ function App() {
     <section>
       {user ? 
       <div className="fullPage">
+        <SignOut/>
+        <GrabData/>
         <div className="header">
         To Do List
         </div>
