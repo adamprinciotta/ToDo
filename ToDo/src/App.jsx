@@ -18,11 +18,6 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 import GrabData from './GrabData';
 
-
-
-
-
-
 firebase.initializeApp({
   apiKey: "AIzaSyCHxPV3qdlMiczHRksKE8oi7ZvYu7ZsOPU",
   authDomain: "todo-c99c9.firebaseapp.com",

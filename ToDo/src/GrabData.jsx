@@ -15,6 +15,7 @@ import 'firebase/compat/auth';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { getFirestore, doc, collection, query, where, orderBy } from 'firebase/firestore';
 
 
 firebase.initializeApp({
@@ -32,13 +33,22 @@ firebase.initializeApp({
 function GrabData(){
     const dataRef = firestore.collection('ListItem')
     console.log(dataRef)
-    const query = dataRef.orderBy('createdAt')
-    console.log(query)
-    const [items] = useCollectionData(query, {idField: 'ListItem'})
-    console.log(items)
+    //const query = dataRef.orderBy('createdAt')
+    //console.log(query)
+    // const [items1] = useCollectionData(firestore.collection("ListItem"))
+    // console.log(items1)
+    // const [items2] = useCollectionData(query, {idField: 'checked'})
+    // console.log("items = " + items2)
+
+    const [items3, loading, error] =  useCollectionData(query(collection(firestore, "ListItem"), where("checked", "==", true)));
+    console.log(items3)
+
+    // console.log("\n\n\n\n about to greab ref")
+    // const ref = query(collection(firestore, 'ListItem'))
+    // console.log("REF = " + ref)
     return(
       <>
-        <div>{items && items.map(item => <Task key = {item.id} listItem={item}></Task>)}</div>
+        <div>{items3 && items3.map(item => <p>Hello there {item.time}</p>)}</div>
       </>
     )
   }
