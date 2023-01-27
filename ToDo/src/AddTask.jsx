@@ -4,10 +4,26 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.css';
 import './AddTask.css'
 
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import 'firebase/compat/auth';
+
 import TimePicker from 'react-time-picker'
 
 
 function AddTask(props) {
+
+    firebase.initializeApp({
+        apiKey: "AIzaSyCHxPV3qdlMiczHRksKE8oi7ZvYu7ZsOPU",
+        authDomain: "todo-c99c9.firebaseapp.com",
+        projectId: "todo-c99c9",
+        storageBucket: "todo-c99c9.appspot.com",
+        messagingSenderId: "777472247932",
+        appId: "1:777472247932:web:2ea24b017159da881421f9",
+        measurementId: "G-CKYMJWZWPP"
+      })
+      const auth = firebase.auth();
+      const firestore = firebase.firestore();
 
     const [time, setTime] = useState('10:00');
 
@@ -107,7 +123,7 @@ useEffect(() =>{
         setTask(event.target.value)
     }
 
-    function handleSubmit(event) {
+    const handleSubmit = async (event) => {
         event.preventDefault()
         if(task != ''){
             // console.log(props.add)
@@ -147,6 +163,28 @@ useEffect(() =>{
                 daysTracker = newStr.join("")
             }
             console.log(daysTracker)
+
+            const { uid } = auth.currentUser
+            console.log("UID : " + uid)
+            // await firestore.collection('ListItem').document(uid).add({
+            //     days: daysTracker,
+            //     name: task,
+            //     section: currentSection,
+            //     time: time
+            // })
+
+            const testRef = firestore.collection("ListItem")
+            testRef.add({
+                days: daysTracker,
+                    name: task,
+                    section: currentSection,
+                    time: time
+            }).then(function(docRef){
+                console.log("Document written with ID: ", docRef.id)
+            })
+            .catch(function(error){
+                console.log("Error: ", error)
+            })
 
             const newItem = { name: task, checked: false, section: currentSection, days: daysTracker}
             props.setList(props.list.concat(newItem))
