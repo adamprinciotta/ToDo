@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import DisplayTask from './DisplayTask'
 import Button from 'react-bootstrap/Button'
 import AddTask from './AddTask.jsx'
 import Task from './Task.jsx'
@@ -16,6 +17,7 @@ import 'firebase/compat/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { getFirestore, doc, collection, query, where, orderBy } from 'firebase/firestore';
+import { useEffect } from 'react'
 
 
 firebase.initializeApp({
@@ -29,26 +31,43 @@ firebase.initializeApp({
   })
   const auth = firebase.auth();
   const firestore = firebase.firestore();
+  
 
 function GrabData(){
-    const dataRef = firestore.collection('ListItem')
-    console.log(dataRef)
-    //const query = dataRef.orderBy('createdAt')
-    //console.log(query)
-    // const [items1] = useCollectionData(firestore.collection("ListItem"))
-    // console.log(items1)
-    // const [items2] = useCollectionData(query, {idField: 'checked'})
-    // console.log("items = " + items2)
 
-    const [items3, loading, error] =  useCollectionData(query(collection(firestore, "ListItem"), where("checked", "==", true)));
-    console.log(items3)
+  const [tasks, setTasks] = useState([])
+  const [rerender, setRerender] = useState(false)
 
-    // console.log("\n\n\n\n about to greab ref")
-    // const ref = query(collection(firestore, 'ListItem'))
-    // console.log("REF = " + ref)
+    const { uid } = auth.currentUser
+
+    useEffect(() => {
+      firestore.collection("ListItem").doc(uid).collection("Tasks").get()
+      .then(snapshot => {
+        const taskData = []
+        snapshot.forEach(doc => {
+          taskData.push({
+            id: doc.id,
+            name: doc.data().name,
+            days: doc.data().days,
+            section: doc.data().section,
+            time: doc.data().time,
+            checked: doc.data().checked
+          })
+          console.log(doc.id, " => ", doc.data());
+        });
+        setTasks(taskData)
+      })
+      .catch(error => {
+        console.error("Error getting sub collection: ", error);
+      });
+
+    },[rerender])
+
     return(
       <>
-        <div>{items3 && items3.map(item => <p>Hello there {item.time}</p>)}</div>
+        {tasks.map(task =>(
+          <DisplayTask key={task.id} name={task.name} days={task.days} section={task.section} time={task.time} checked={task.checked} setRerender={setRerender} rerender={rerender}/>
+        ))}
       </>
     )
   }

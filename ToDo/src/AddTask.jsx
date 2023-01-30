@@ -174,17 +174,58 @@ useEffect(() =>{
             // })
 
             const testRef = firestore.collection("ListItem")
-            testRef.add({
-                days: daysTracker,
-                    name: task,
-                    section: currentSection,
-                    time: time
-            }).then(function(docRef){
-                console.log("Document written with ID: ", docRef.id)
+            const testRef2 = firestore.collection("ListItem").doc(uid)
+            console.log("testRef: " + testRef)
+            console.log("testRef2: " + testRef2)
+
+
+            testRef2.get().then(function(doc){
+                if(doc.exists){
+                    firestore.collection("ListItem").doc(uid).collection("Tasks").doc(task).set(
+                        {
+                            days: daysTracker,
+                            name: task,
+                            section: currentSection,
+                            time: time,
+                            checked: false
+                        }
+                    ).then(function(){
+                        console.log("Document written with ID: ", uid)
+                    })
+                    .catch(function(error){
+                        console.log("Error: ", error)
+                    })
+                }
+                else{
+                    firestore.collection("ListItem").doc(uid).collection("Tasks").doc(task).set( 
+                        {
+                            days: daysTracker,
+                            name: task,
+                            section: currentSection,
+                            time: time
+                        }).then(function(){
+                                console.log("Document written with ID: ", uid)
+                        })
+                            .catch(function(error){
+                                console.log("Error: ", error)
+                        })
+                    console.log("Doc doesn't exist")
+                }
+            }).catch(function(error){
+                console.log("error: " + error)
             })
-            .catch(function(error){
-                console.log("Error: ", error)
-            })
+
+            // testRef.add({
+            //     days: daysTracker,
+            //         name: task,
+            //         section: currentSection,
+            //         time: time
+            // }).then(function(docRef){
+            //     console.log("Document written with ID: ", docRef.id)
+            // })
+            // .catch(function(error){
+            //     console.log("Error: ", error)
+            // })
 
             const newItem = { name: task, checked: false, section: currentSection, days: daysTracker}
             props.setList(props.list.concat(newItem))

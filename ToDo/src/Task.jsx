@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button'
 
 
 function Task(props) {
-
     function handleChecked(index){
         const newTaskList = [...props.list]
         newTaskList[index].checked = !newTaskList[index].checked

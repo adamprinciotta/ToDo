@@ -106,7 +106,7 @@ function App() {
         <div className="header">
         To Do List
         </div>
-        <Task list={list} setList={setList}/>
+        {/* <Task list={list} setList={setList}/> */}
         
         <Button onClick={addTask} className="addTaskBtn" style={{borderColor: "black"}}>Add Task</Button>
         {/* <AddTaskModal show={add} onHide={() => setAdd(false)}/> */}
