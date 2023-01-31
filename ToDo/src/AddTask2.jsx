@@ -11,7 +11,7 @@ import 'firebase/compat/auth';
 import TimePicker from 'react-time-picker'
 
 
-function AddTask(props) {
+function AddTask2(props) {
 
     firebase.initializeApp({
         apiKey: "AIzaSyCHxPV3qdlMiczHRksKE8oi7ZvYu7ZsOPU",
@@ -38,41 +38,8 @@ function AddTask(props) {
 
     let daysTracker = '0000000'
 
-    const [sections, setSections] = useState([<Dropdown.Item onClick={()=>handleSectionClick("Work")}>Work</Dropdown.Item>, 
-    <Dropdown.Item onClick={()=>handleSectionClick("Personal")}>Personal</Dropdown.Item>, 
-    <Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>])
-
     const [newSectionTest, setNewSectionTest] = useState([])
 
-
-//     //function addSections(){
-//         useEffect(() =>{
-//             console.log("USE EFFECT")
-//             //gets the new list without the Add New object
-//             let newSectionList = [...sections.slice(0, sections.length-1)]
-//             for(let x = 0; x < props.storedSections.length; x++){
-//                 console.log(props.storedSections[x])
-//                 if(sections.indexOf(props.storedSections[x]) == -1)
-//                 console.log("NOT ALREADY IN THE LIST")
-//                 //adds the new object that they want to add
-//                 newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick(props.storedSections[x])}>{props.storedSections[x]}</Dropdown.Item>)
-//             }
-            
-//             //then adds in the Add new object again
-//             newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>)
-//             // console.log("NEW SECTION LIST: ")
-//             // newSectionList.map((index) =>{
-//             //     console.log(index)
-//             // })
-            
-//             setSections(newSectionList)
-//             setNewSectionTest(newSectionList)
-//             console.log("NEW SECTION LIST:")
-//             // newSectionList.map((index) =>{
-//             //     console.log(index)
-//             // })
-//         }, [])
-//    // }
 
 useEffect(() =>{
     //gets the new list without the Add New object
@@ -88,7 +55,6 @@ useEffect(() =>{
     // setSections(newSectionList)
     setNewSectionTest(newSectionList)
 }, [props.storedSections, sections])
-
 
     const [currentSection, setCurrentSection] = useState('Work')
     
@@ -166,18 +132,11 @@ useEffect(() =>{
 
             const { uid } = auth.currentUser
             console.log("UID : " + uid)
-            // await firestore.collection('ListItem').document(uid).add({
-            //     days: daysTracker,
-            //     name: task,
-            //     section: currentSection,
-            //     time: time
-            // })
 
             const testRef = firestore.collection("ListItem")
             const testRef2 = firestore.collection("ListItem").doc(uid)
             console.log("testRef: " + testRef)
             console.log("testRef2: " + testRef2)
-
 
             testRef2.get().then(function(doc){
                 if(doc.exists){
@@ -228,7 +187,7 @@ useEffect(() =>{
             // })
 
             const newItem = { name: task, checked: false, section: currentSection, days: daysTracker}
-            // props.setList(props.list.concat(newItem))
+            props.setList(props.list.concat(newItem))
             // console.log("Submitted")
             props.checkListSize()
             props.setAdd(false)
@@ -340,4 +299,4 @@ useEffect(() =>{
     )
 }
 
-export default AddTask
+export default AddTask2

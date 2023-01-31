@@ -3,7 +3,6 @@ import './App.css'
 import Button from 'react-bootstrap/Button'
 import AddTask from './AddTask.jsx'
 import Task from './Task.jsx'
-import AddTaskModal from './AddTaskModal'
 //import SignIn from './SignIn'
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.css';

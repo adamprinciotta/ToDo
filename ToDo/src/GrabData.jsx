@@ -4,7 +4,6 @@ import DisplayTask from './DisplayTask'
 import Button from 'react-bootstrap/Button'
 import AddTask from './AddTask.jsx'
 import Task from './Task.jsx'
-import AddTaskModal from './AddTaskModal'
 //import SignIn from './SignIn'
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -37,6 +36,9 @@ function GrabData(){
 
   const [tasks, setTasks] = useState([])
   const [rerender, setRerender] = useState(false)
+  const [sectionsList, setSectionsList] = useState(["Work", "Personal"])
+
+  const [add, setAdd] = useState(false)
 
     const { uid } = auth.currentUser
 
@@ -44,7 +46,6 @@ function GrabData(){
       firestore.collection("ListItem").doc(uid).collection("Tasks").get()
       .then(snapshot => {
         const taskData = []
-        const sectionsList = []
         snapshot.forEach(doc => {
           if(!sectionsList.includes(doc.data().section)){
             sectionsList.push(doc.data().section)
@@ -59,7 +60,11 @@ function GrabData(){
           })
           console.log(doc.id, " => ", doc.data());
         });
-        if(!sectionsList.includes("Add New")){
+        if(sectionsList.includes("Add New")){
+          sectionsList.remove("Add New")
+          sectionsList.push("Add New")
+        }
+        else{
           sectionsList.push("Add New")
         }
         console.log("sections" + sectionsList)
@@ -76,7 +81,7 @@ function GrabData(){
         {tasks.map(task =>(
           <DisplayTask key={task.id} name={task.name} days={task.days} section={task.section} time={task.time} checked={task.checked} setRerender={setRerender} rerender={rerender}/>
         ))}
-        {/* <AddTask/> */}
+        {/* {add && <AddTask2 sectionsList={sectionsList} setSectionsList={setSectionsList} add={add} setAdd={setAdd}/> }*/}
       </>
     )
   }
