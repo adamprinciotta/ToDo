@@ -44,7 +44,11 @@ function GrabData(){
       firestore.collection("ListItem").doc(uid).collection("Tasks").get()
       .then(snapshot => {
         const taskData = []
+        const sectionsList = []
         snapshot.forEach(doc => {
+          if(!sectionsList.includes(doc.data().section)){
+            sectionsList.push(doc.data().section)
+          }
           taskData.push({
             id: doc.id,
             name: doc.data().name,
@@ -55,6 +59,10 @@ function GrabData(){
           })
           console.log(doc.id, " => ", doc.data());
         });
+        if(!sectionsList.includes("Add New")){
+          sectionsList.push("Add New")
+        }
+        console.log("sections" + sectionsList)
         setTasks(taskData)
       })
       .catch(error => {
@@ -68,6 +76,7 @@ function GrabData(){
         {tasks.map(task =>(
           <DisplayTask key={task.id} name={task.name} days={task.days} section={task.section} time={task.time} checked={task.checked} setRerender={setRerender} rerender={rerender}/>
         ))}
+        {/* <AddTask/> */}
       </>
     )
   }
