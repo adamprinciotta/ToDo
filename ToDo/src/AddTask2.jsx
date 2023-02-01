@@ -40,21 +40,30 @@ function AddTask2(props) {
 
     const [newSectionTest, setNewSectionTest] = useState([])
 
+    const [sections, setSections] = useState([])
+
+    // const newSectionList = [...newSectionTest.slice(0, newSectionTest.length-1)]
+    // //adds the new object that they want to add
+    // newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick(newSectionText)}>{newSectionText}</Dropdown.Item>)
+    // //then adds in the Add new object again
+    // newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>)
 
 useEffect(() =>{
-    //gets the new list without the Add New object
-    let newSectionList = [...sections.slice(0, sections.length-1)]
-    for(let x = 0; x < props.storedSections.length; x++){
-        if(sections.indexOf(props.storedSections[x]) == -1)
-        //adds the new object that they want to add
-        newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick(props.storedSections[x])}>{props.storedSections[x]}</Dropdown.Item>)
-    }
-    
-    //then adds in the Add new object again
-    newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>)
+
+    setSections([])
+    props.sectionsList.forEach(section => {
+        if(section != "Add New")
+        sections.push(<Dropdown.Item onClick={()=>handleSectionClick(newSectionText)}>{newSectionText}</Dropdown.Item>)
+    })
+    sections.push(<Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>)
+
+    sections.forEach(ListItem =>{
+        console.log(ListItem)
+    })
+
     // setSections(newSectionList)
-    setNewSectionTest(newSectionList)
-}, [props.storedSections, sections])
+    setNewSectionTest(sections)
+},[]) // [props.storedSections, sections])
 
     const [currentSection, setCurrentSection] = useState('Work')
     
@@ -128,18 +137,18 @@ useEffect(() =>{
                 newStr.splice(6, 1, '1')
                 daysTracker = newStr.join("")
             }
-            console.log(daysTracker)
+            // console.log(daysTracker)
 
             const { uid } = auth.currentUser
-            console.log("UID : " + uid)
+            // console.log("UID : " + uid)
 
             const testRef = firestore.collection("ListItem")
             const testRef2 = firestore.collection("ListItem").doc(uid)
-            console.log("testRef: " + testRef)
-            console.log("testRef2: " + testRef2)
+            // console.log("testRef: " + testRef)
+            // console.log("testRef2: " + testRef2)
 
             testRef2.get().then(function(doc){
-                if(doc.exists){
+                if(doc.exists){ //If they already have a task made
                     firestore.collection("ListItem").doc(uid).collection("Tasks").doc(task).set(
                         {
                             days: daysTracker,
@@ -155,7 +164,7 @@ useEffect(() =>{
                         console.log("Error: ", error)
                     })
                 }
-                else{
+                else{ //If this is the first task they are adding, then create a new doc and collection
                     firestore.collection("ListItem").doc(uid).collection("Tasks").doc(task).set( 
                         {
                             days: daysTracker,
@@ -174,22 +183,7 @@ useEffect(() =>{
                 console.log("error: " + error)
             })
 
-            // testRef.add({
-            //     days: daysTracker,
-            //         name: task,
-            //         section: currentSection,
-            //         time: time
-            // }).then(function(docRef){
-            //     console.log("Document written with ID: ", docRef.id)
-            // })
-            // .catch(function(error){
-            //     console.log("Error: ", error)
-            // })
-
-            const newItem = { name: task, checked: false, section: currentSection, days: daysTracker}
-            props.setList(props.list.concat(newItem))
-            // console.log("Submitted")
-            props.checkListSize()
+            //Sets the toggle for visiblity off
             props.setAdd(false)
         }
         else{
@@ -219,8 +213,7 @@ useEffect(() =>{
     function handleNewSection(){
         console.log("handling new section")
         //gets the new list without the Add New object
-        //const newSectionList = [...sections.slice(0, sections.length-1)]
-        const newSectionList = [...newSectionTest.slice(0, newSectionTest.length-1)]
+        const newSectionList = [...sections.slice(0, sections.length-1)]
         //adds the new object that they want to add
         newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick(newSectionText)}>{newSectionText}</Dropdown.Item>)
         //then adds in the Add new object again
@@ -229,6 +222,9 @@ useEffect(() =>{
         //updates the dropdown list
         //setSections(newSectionList)
 
+        //Updates the stored sections
+        props.sectionsList.push(newSectionText)
+
         //sets it so the new section should not show up
         setNewSection(false)
         //resets the new section text so when they add a new section it doesn't have the last section they wanted
@@ -236,12 +232,7 @@ useEffect(() =>{
 
         console.log("this is the newSection list in the handle new section")
         console.log(newSectionList)
-        setNewSectionTest(newSectionList)
-
-
-
-        //Updates the stored sections
-        props.setStoredSections([...props.storedSections, newSectionText])
+        setSections(newSectionList)
       }
 
     const handleNewSectionTextChange = event =>{

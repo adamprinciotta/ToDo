@@ -84,13 +84,11 @@ function App() {
   //   console.log("This is the list length:" + list.length)
   // }
 
-  function checkListSize() {
-    console.log("list: " + list.length)
-  }
+  // function checkListSize() {
+  //   console.log("list: " + list.length)
+  // }
 
-  function addTask(){
-    setAdd(true)
-  }
+
 
 
 
@@ -107,11 +105,11 @@ function App() {
         </div>
         {/* <Task list={list} setList={setList}/> */}
         
-        <Button onClick={addTask} className="addTaskBtn" style={{borderColor: "black"}}>Add Task</Button>
+        
         {/* <AddTaskModal show={add} onHide={() => setAdd(false)}/> */}
 
         {/* displayTasks={displayTasks} */}
-        {add && (<AddTask list={list} setList={setList} add={add} setAdd={setAdd} checkListSize={checkListSize} storedSections={storedSections} setStoredSections={setStoredSections}/>)}
+        {/* {add && (<AddTask list={list} setList={setList} add={add} setAdd={setAdd} checkListSize={checkListSize} storedSections={storedSections} setStoredSections={setStoredSections}/>)} */}
       </div> : <SignIn/>}
     </section>
     
