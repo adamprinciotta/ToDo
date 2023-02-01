@@ -49,11 +49,14 @@ function AddTask2(props) {
     // newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>)
 
 useEffect(() =>{
-
+    console.log("MADE IT")
     setSections([])
     props.sectionsList.forEach(section => {
-        if(section != "Add New")
-        sections.push(<Dropdown.Item onClick={()=>handleSectionClick(newSectionText)}>{newSectionText}</Dropdown.Item>)
+        console.log("SECTIONS IN ADDTASK: " + section)
+        if(section != "Add New"){
+            sections.push(<Dropdown.Item onClick={()=>handleSectionClick(section)}>{section}</Dropdown.Item>)
+        }
+        
     })
     sections.push(<Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>)
 
@@ -63,7 +66,7 @@ useEffect(() =>{
 
     // setSections(newSectionList)
     setNewSectionTest(sections)
-},[]) // [props.storedSections, sections])
+}, [props.sectionsList]) // [props.storedSections, sections])
 
     const [currentSection, setCurrentSection] = useState('Work')
     
@@ -272,7 +275,7 @@ useEffect(() =>{
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                     {newSectionTest.map((index) => {
-                        // console.log(index.props.children)
+                        console.log("This is newSectionTest: " + index.props.children)
                         return(index)
                     })}
                 </Dropdown.Menu>
