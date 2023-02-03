@@ -30,6 +30,27 @@ function DisplayTask(props) {
 
     const { uid } = auth.currentUser
 
+    const splitDays = props.days.split('')
+    
+    const [shouldDisplay, setShouldDisplay] = useState(false)
+
+    useEffect(() => {
+        checkShouldDisplay()
+    })
+
+    function checkShouldDisplay(){
+        const displayBool = splitDays[props.day]
+        if(displayBool == 0){
+            setShouldDisplay(false)
+        }
+        else{
+            setShouldDisplay(true)
+        }
+        console.log("SHOULD I DISPLAY " + props.name + " TODAY : " + shouldDisplay)
+    }
+
+
+
 
     function handleChecked(){
         if(props.checked){
@@ -57,7 +78,9 @@ function DisplayTask(props) {
 
     console.log("made it to display task")
     return(
-        <div>
+        <>
+        {shouldDisplay &&
+        (<div>
             <>
             <div className="taskContainer">
                 <div className="task">
@@ -78,7 +101,8 @@ function DisplayTask(props) {
             </div>
             <div className='spacer' style={{paddingTop: "15px"}}></div>
             </>
-      </div>
+      </div>)}
+      </>
     )
 }
 

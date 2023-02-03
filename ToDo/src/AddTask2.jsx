@@ -41,6 +41,7 @@ function AddTask2(props) {
     const [newSectionTest, setNewSectionTest] = useState([])
 
     const [sections, setSections] = useState([])
+    const [sectionsTracker, setSectionsTracker] = useState([])
 
     // const newSectionList = [...newSectionTest.slice(0, newSectionTest.length-1)]
     // //adds the new object that they want to add
@@ -53,20 +54,27 @@ useEffect(() =>{
     setSections([])
     props.sectionsList.forEach(section => {
         console.log("SECTIONS IN ADDTASK: " + section)
-        if(section != "Add New"){
+        //Makes sure Add New is not added until the end and makes sure the double render doesn't duplicate it
+        if(section != "Add New" && !sectionsTracker.includes(section)){
+            //Adds to the tracker
+            sectionsTracker.push(section)
+            //Pushes to the section dropdown for render
             sections.push(<Dropdown.Item onClick={()=>handleSectionClick(section)}>{section}</Dropdown.Item>)
         }
-        
     })
-    sections.push(<Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>)
+    //Adds Add New to the end of the list if it's not already there
+    if(!sectionsTracker.includes("Add New")){
+        sectionsTracker.push("Add New")
+        sections.push(<Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>)
+    }
 
     sections.forEach(ListItem =>{
         console.log(ListItem)
     })
 
-    // setSections(newSectionList)
+    //Updates the render list to be the sections made above
     setNewSectionTest(sections)
-}, [props.sectionsList]) // [props.storedSections, sections])
+}, [])
 
     const [currentSection, setCurrentSection] = useState('Work')
     
@@ -188,6 +196,8 @@ useEffect(() =>{
 
             //Sets the toggle for visiblity off
             props.setAdd(false)
+            console.log("ABOUT TO RERENDER")
+            props.rerenderGrabData()
         }
         else{
             alert("You cannot add an empty task")
@@ -216,7 +226,7 @@ useEffect(() =>{
     function handleNewSection(){
         console.log("handling new section")
         //gets the new list without the Add New object
-        const newSectionList = [...sections.slice(0, sections.length-1)]
+        const newSectionList = [...newSectionTest.slice(0, sections.length-1)]
         //adds the new object that they want to add
         newSectionList.push(<Dropdown.Item onClick={()=>handleSectionClick(newSectionText)}>{newSectionText}</Dropdown.Item>)
         //then adds in the Add new object again
@@ -233,9 +243,10 @@ useEffect(() =>{
         //resets the new section text so when they add a new section it doesn't have the last section they wanted
         setNewSectionText("")
 
-        console.log("this is the newSection list in the handle new section")
-        console.log(newSectionList)
-        setSections(newSectionList)
+        //updates the list being displayed
+        setNewSectionTest(newSectionList)
+        //updates the dropdown menu to hold the new value as QOL fix
+        handleSectionClick(newSectionText)
       }
 
     const handleNewSectionTextChange = event =>{
@@ -244,7 +255,6 @@ useEffect(() =>{
 
     return(
     <>
-    
     <div className="taskModal" style={{paddingTop: "15px"}}> 
         <Button onClick={handleCancel} className="cancel">X</Button>
 
