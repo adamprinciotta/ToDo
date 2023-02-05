@@ -35,7 +35,8 @@ firebase.initializeApp({
 function GrabData(){
 
   const [tasks, setTasks] = useState([])
-  const [rerender, setRerender] = useState(1)
+  const [rerender, setRerender] = useState(false)
+  const [rerenderFromAddTask, setRerenderFromAddTask] = useState(0)
   const [sectionsList, setSectionsList] = useState(["Work", "Personal"])
 
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -47,15 +48,19 @@ function GrabData(){
   const [add, setAdd] = useState(false)
 
   function rerenderGrabData(){
-    console.log("this is rerender before: " + rerender)
-    // if(rerender){
-    //   setRerender(false)
+    // console.log("this is rerender before: " + rerenderFromAddTask)
+    // if(rerenderFromAddTask){
+    //   console.log("IT IS TRUE so it should become false")
+    //   setRerenderFromAddTask(false)
     // }
     // else{
-    //   setRerender(true)
+    //   console.log("IT IS FALSE so it should become true")
+    //   setRerenderFromAddTask(true)
     // }
-    setRerender(rerender+1)
-    console.log("this is rerender after: " + rerender)
+    // var prevRenderNum = rerenderFromAddTask+1
+    // setRerenderFromAddTask(prevRenderNum)
+    // console.log("this is rerender after: " + rerenderFromAddTask)
+    setRerender(!rerender)
   }
 
   function addTask(){
@@ -65,6 +70,7 @@ function GrabData(){
     const { uid } = auth.currentUser
 
     useEffect(() => {
+      console.log("This is the value of rendingforaddtask: " + rerenderFromAddTask)
       console.log("This is sectionList before even doing anything: " + sectionsList)
       firestore.collection("ListItem").doc(uid).collection("Tasks").get()
       .then(snapshot => {

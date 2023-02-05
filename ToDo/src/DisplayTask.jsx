@@ -36,10 +36,14 @@ function DisplayTask(props) {
 
     useEffect(() => {
         checkShouldDisplay()
-    })
+        console.log("TASK NAME: " + props.name)
+        console.log("TASK SECTION: " + props.section)
+        console.log("TASK TIME: " + props.time)
+        console.log("TASK DAYS: " + props.days)
+    }, [props.rerender])
 
     function checkShouldDisplay(){
-        const displayBool = splitDays[props.day]
+        const displayBool = splitDays[props.days]
         if(displayBool == 0){
             setShouldDisplay(false)
         }
