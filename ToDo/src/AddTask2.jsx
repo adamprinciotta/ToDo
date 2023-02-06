@@ -285,7 +285,6 @@ useEffect(() =>{
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                     {newSectionTest.map((index) => {
-                        console.log("This is newSectionTest: " + index.props.children)
                         return(index)
                     })}
                 </Dropdown.Menu>

@@ -36,7 +36,9 @@ function GrabData(){
 
   const [tasks, setTasks] = useState([])
   const [rerender, setRerender] = useState(false)
-  const [rerenderFromAddTask, setRerenderFromAddTask] = useState(0)
+  const [rerenderDisplay, setRerenderDisplay] = useState(false)
+  const [dataLoaded, setDataLoaded] = useState(false)
+
   const [sectionsList, setSectionsList] = useState(["Work", "Personal"])
 
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -48,19 +50,8 @@ function GrabData(){
   const [add, setAdd] = useState(false)
 
   function rerenderGrabData(){
-    // console.log("this is rerender before: " + rerenderFromAddTask)
-    // if(rerenderFromAddTask){
-    //   console.log("IT IS TRUE so it should become false")
-    //   setRerenderFromAddTask(false)
-    // }
-    // else{
-    //   console.log("IT IS FALSE so it should become true")
-    //   setRerenderFromAddTask(true)
-    // }
-    // var prevRenderNum = rerenderFromAddTask+1
-    // setRerenderFromAddTask(prevRenderNum)
-    // console.log("this is rerender after: " + rerenderFromAddTask)
     setRerender(!rerender)
+    setDataLoaded(false)
   }
 
   function addTask(){
@@ -70,9 +61,10 @@ function GrabData(){
     const { uid } = auth.currentUser
 
     useEffect(() => {
-      console.log("This is the value of rendingforaddtask: " + rerenderFromAddTask)
+      console.log("This is the value of rerender: " + rerender)
+      console.log("This is the value of dataLoaded: " + dataLoaded)
       console.log("This is sectionList before even doing anything: " + sectionsList)
-      firestore.collection("ListItem").doc(uid).collection("Tasks").get()
+      firestore.collection("ListItem").doc(uid).collection("Tasks").get({ source: 'server' })
       .then(snapshot => {
         const taskData = []
         snapshot.forEach(doc => {
@@ -102,18 +94,21 @@ function GrabData(){
         }
         console.log("sections: " + sectionsList)
         setTasks(taskData)
-      })
+        setDataLoaded(true)
+      }
+      )
       .catch(error => {
         console.error("Error getting sub collection: ", error);
       });
-    },[rerender])//rerender causes it to load twice
+      
+    },[rerender, sectionsList, dataLoaded])//rerender causes it to load twice
 
     return(
       <>
         <Button onClick={addTask} className="addTaskBtn" style={{borderColor: "black"}}>Add Task</Button>
-        {tasks.map(task =>(
-          <DisplayTask key={task.id} name={task.name} days={task.days} section={task.section} time={task.time} checked={task.checked} setRerender={setRerender} day={dayIndex} rerender={rerender}/>
-        ))}
+        {dataLoaded && (tasks.map(task =>(
+          <DisplayTask key={task.id} name={task.name} days={task.days} section={task.section} time={task.time} checked={task.checked} rerenderDisplay={rerenderDisplay} setRerender={setRerender} day={dayIndex} rerender={rerender}/>
+        )))}
         {add && <AddTask2 sectionsList={sectionsList} setSectionsList={setSectionsList} add={add} setAdd={setAdd} rerenderGrabData={rerenderGrabData}/>}
       </>
     )

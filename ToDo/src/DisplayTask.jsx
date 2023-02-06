@@ -29,21 +29,20 @@ firebase.initializeApp({
 function DisplayTask(props) {
 
     const { uid } = auth.currentUser
-
-    const splitDays = props.days.split('')
     
     const [shouldDisplay, setShouldDisplay] = useState(false)
 
     useEffect(() => {
         checkShouldDisplay()
         console.log("TASK NAME: " + props.name)
-        console.log("TASK SECTION: " + props.section)
-        console.log("TASK TIME: " + props.time)
-        console.log("TASK DAYS: " + props.days)
-    }, [props.rerender])
+        // console.log("TASK SECTION: " + props.section)
+        // console.log("TASK TIME: " + props.time)
+        // console.log("TASK DAYS: " + props.days)
+    }, [props.rerenderDisplay, props.rerender])
 
     function checkShouldDisplay(){
-        const displayBool = splitDays[props.days]
+        const splitDays = props.days.split('')
+        const displayBool = splitDays[props.day]
         if(displayBool == 0){
             setShouldDisplay(false)
         }
@@ -80,7 +79,6 @@ function DisplayTask(props) {
         props.setRerender(!props.rerender)
     }
 
-    console.log("made it to display task")
     return(
         <>
         {shouldDisplay &&
