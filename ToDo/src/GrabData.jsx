@@ -101,7 +101,7 @@ function GrabData(){
         console.error("Error getting sub collection: ", error);
       });
       
-    },[rerender, sectionsList, dataLoaded])//rerender causes it to load twice
+    },[rerender, sectionsList, dataLoaded]) //dataLoaded makes sure it rerenders again after the data is grabbed
 
     return(
       <>

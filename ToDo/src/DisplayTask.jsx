@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './Task.css'
 import Button from 'react-bootstrap/Button'
+import edit from './edit.png'
 
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
@@ -79,6 +80,10 @@ function DisplayTask(props) {
         props.setRerender(!props.rerender)
     }
 
+    function sayHi(){
+        console.log("HI :)")
+    }
+
     return(
         <>
         {shouldDisplay &&
@@ -100,8 +105,14 @@ function DisplayTask(props) {
               <div className="sectionName" style={{position: 'relative', right: '-50px'}}>
                     {props.section}
               </div>
+              <div className='spacer' style={{paddingTop: "15px"}}></div>
+              <div className="buttons">
+                <img onClick={sayHi} src={edit} width="50" height="50"></img>
+                <img onClick={sayHi} src="https://cdn.icon-icons.com/icons2/1919/PNG/512/biggarbagebin_121980.png" width="50" height="50"></img>
+              </div>
             </div>
             <div className='spacer' style={{paddingTop: "15px"}}></div>
+            
             </>
       </div>)}
       </>

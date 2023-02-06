@@ -4,11 +4,11 @@
     background-color: lightgray;
     border-radius: 20px;
     padding: 1px 10px;
-    width: 60vw;
+    width: 50vw;
 }
 
 .taskName{
-    color: black;
+    /* color: black; */
     font-size: 25px;
 }
 
@@ -16,7 +16,8 @@
     display: flex;
     width: 80vw;
     min-height: 100px;
-    background-color: aqua;
+    /* background-color: aqua; */
+    justify-content: center;
 }
 
 .sectionName{
@@ -25,16 +26,27 @@
     background-color: lightgray;
     border-radius: 20px;
     padding: 1px 10px;
-    width: 200px;
+    width: 10vw;
     flex-wrap: wrap;
     font-size: 20px;
     font-weight: bold;
-    color: teal;
-     
 }
 
 .checkboxStyle{
     height: 30px;
     width: 30px;
     border-radius: 15px;
+}
+
+.buttons{
+    width: 15vw;
+    background-color: transparent;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+.spacer{
+    width: 5vw;
 }
