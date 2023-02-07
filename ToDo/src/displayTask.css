@@ -1,0 +1,22 @@
+.deleteModal{
+    width: 400px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    border: 2px solid red;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    background-color: white;
+}
+
+.verify{
+    font-size: 20px;
+}
+.choice{
+    display:flex;
+    justify-content: space-evenly;
+}

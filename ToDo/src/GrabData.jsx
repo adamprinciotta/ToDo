@@ -3,6 +3,7 @@ import './App.css'
 import DisplayTask from './DisplayTask'
 import Button from 'react-bootstrap/Button'
 import AddTask2 from './AddTask2.jsx'
+import EditTask from './EditTask'
 import Task from './Task.jsx'
 //import SignIn from './SignIn'
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -46,6 +47,8 @@ function GrabData(){
   const dayOfTheWeek = days[today.getDay()]
   const dayIndex = days.indexOf(dayOfTheWeek)
 
+  const [taskToEdit, setTaskToEdit] = useState({})
+  const [editTask, setEditTask] = useState(false)
 
   const [add, setAdd] = useState(false)
 
@@ -56,6 +59,17 @@ function GrabData(){
 
   function addTask(){
     setAdd(true)
+  }
+
+  function handleDelete(taskName){
+    firestore.collection("ListItem").doc(uid).collection("Tasks").doc(taskName).delete()
+    .then(function() {
+        console.log("Deleted");
+    })
+    .catch(function(error) {
+      console.log("Error: ", error);
+    });
+    rerenderGrabData()
   }
 
     const { uid } = auth.currentUser
@@ -107,9 +121,38 @@ function GrabData(){
       <>
         <Button onClick={addTask} className="addTaskBtn" style={{borderColor: "black"}}>Add Task</Button>
         {dataLoaded && (tasks.map(task =>(
-          <DisplayTask key={task.id} name={task.name} days={task.days} section={task.section} time={task.time} checked={task.checked} rerenderDisplay={rerenderDisplay} setRerender={setRerender} day={dayIndex} rerender={rerender}/>
+          <DisplayTask 
+            key={task.id} 
+            name={task.name} 
+            days={task.days} 
+            section={task.section} 
+            time={task.time} 
+            checked={task.checked} 
+            rerenderDisplay={rerenderDisplay} 
+            setRerender={setRerender} 
+            day={dayIndex} 
+            rerender={rerender}
+            editTask={editTask}
+            setEditTask={setEditTask}
+            taskToEdit={taskToEdit} 
+            setTaskToEdit={setTaskToEdit}
+            handleDelete={handleDelete}/>
         )))}
-        {add && <AddTask2 sectionsList={sectionsList} setSectionsList={setSectionsList} add={add} setAdd={setAdd} rerenderGrabData={rerenderGrabData}/>}
+        {add && 
+        <AddTask2 
+          sectionsList={sectionsList} 
+          setSectionsList={setSectionsList} 
+          add={add} setAdd={setAdd} 
+          rerenderGrabData={rerenderGrabData}/>
+        }
+        {!add && editTask && 
+        <EditTask 
+        sectionsList={sectionsList} 
+        setSectionsList={setSectionsList} 
+        editTask={editTask} setEditTask={setEditTask}
+        taskToEdit={taskToEdit} setTaskToEdit={setTaskToEdit} 
+        rerenderGrabData={rerenderGrabData}></EditTask>}
+
       </>
     )
   }

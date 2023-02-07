@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import './Task.css'
 import Button from 'react-bootstrap/Button'
-import edit from './edit.png'
+import editImage from './edit.png'
+import trashImage from './trash.png'
+
+import './displayTask.css'
 
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
@@ -32,6 +35,8 @@ function DisplayTask(props) {
     const { uid } = auth.currentUser
     
     const [shouldDisplay, setShouldDisplay] = useState(false)
+
+    const [deleteModal, setDeleteModal] = useState(false)
 
     useEffect(() => {
         checkShouldDisplay()
@@ -80,8 +85,29 @@ function DisplayTask(props) {
         props.setRerender(!props.rerender)
     }
 
-    function sayHi(){
-        console.log("HI :)")
+    function edit(){
+        props.setTaskToEdit({
+                days: props.days,
+                name: props.name,
+                section: props.section,
+                time: props.time,
+                checked: props.checked
+        })
+        props.setEditTask(true)
+    }
+
+    function deleteTask(){
+        console.log("deleteTask")
+        setDeleteModal(true)
+    }
+
+    function handleNo(){
+        setDeleteModal(false)
+    }
+
+    function handleYes(){
+        setDeleteModal(false)
+        props.handleDelete(props.name)
     }
 
     return(
@@ -107,14 +133,22 @@ function DisplayTask(props) {
               </div>
               <div className='spacer' style={{paddingTop: "15px"}}></div>
               <div className="buttons">
-                <img onClick={sayHi} src={edit} width="50" height="50"></img>
-                <img onClick={sayHi} src="https://cdn.icon-icons.com/icons2/1919/PNG/512/biggarbagebin_121980.png" width="50" height="50"></img>
+                <img onClick={edit} src={editImage} width="50" height="50"></img>
+                <img onClick={deleteTask} src={trashImage} width="50" height="50"></img>
               </div>
             </div>
             <div className='spacer' style={{paddingTop: "15px"}}></div>
-            
             </>
       </div>)}
+      {deleteModal && 
+      <div className="deleteModal">
+        <div className='verify'>Are you sure you want to delete this?</div>
+        <br></br>
+        <div className="choice">
+            <div onClick = {handleNo}setclassName='No'><Button className='btn btn-danger'>No</Button></div>
+            <div onClick = {handleYes}className='yes'><Button className='btn btn-success'>Yes</Button></div>
+        </div>
+      </div>}
       </>
     )
 }

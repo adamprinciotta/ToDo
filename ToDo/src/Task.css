@@ -46,6 +46,10 @@
     align-items: center;
 }
 
+.buttons:hover{
+    cursor: pointer;
+}
+
 
 .spacer{
     width: 5vw;
