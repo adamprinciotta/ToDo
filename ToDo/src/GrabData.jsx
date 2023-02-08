@@ -119,6 +119,7 @@ function GrabData(){
 
     return(
       <>
+      <h1 style={{paddingBottom: '10px'}}>To Do List</h1>
         <Button onClick={addTask} className="addTaskBtn" style={{borderColor: "black"}}>Add Task</Button>
         {dataLoaded && (tasks.map(task =>(
           <DisplayTask 

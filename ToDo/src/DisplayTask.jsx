@@ -38,6 +38,8 @@ function DisplayTask(props) {
 
     const [deleteModal, setDeleteModal] = useState(false)
 
+    const [hourToDisplay, setHourToDisplay] = useState('')
+
     useEffect(() => {
         checkShouldDisplay()
         console.log("TASK NAME: " + props.name)
@@ -55,6 +57,17 @@ function DisplayTask(props) {
         else{
             setShouldDisplay(true)
         }
+
+        var time = props.time.split('')
+        var hour = props.time.substring(0, 2)
+        var AMPM = 'AM'
+        var parseHour = parseInt(hour)
+        if(parseHour > 12){
+            var AMPM = 'PM'
+            hour -= 12
+        }
+        var mins = props.time.substring(3, 5)
+        setHourToDisplay(hour + ':' + mins + AMPM)
         console.log("SHOULD I DISPLAY " + props.name + " TODAY : " + shouldDisplay)
     }
 
@@ -127,6 +140,7 @@ function DisplayTask(props) {
                   <div className="taskName" style={{
                       textDecoration: props.checked ? "line-through" : "none", paddingLeft: "20px" }}>{props.name}
                   </div>
+                  <div className='time'>{hourToDisplay}</div>
               </div>
               <div className="sectionName" style={{position: 'relative', right: '-50px'}}>
                     {props.section}

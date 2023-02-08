@@ -258,29 +258,34 @@ useEffect(() =>{
     <div className="taskModal" style={{paddingTop: "15px"}}> 
         <Button onClick={handleCancel} className="cancel">X</Button>
 
+        <div className='title'>Add a New Task</div>
         <form onSubmit={handleSubmit}>
-            <label>
+            <label style={{color: 'white'}}>
                 Task:
                 <input type="text" className="taskInput" value={task} onChange={taskChange}  />
             </label>
-            <input type="submit" value="Submit"/>
+            <input className='submit' type="submit" value="Submit"/>
         </form>
 
-        <div className="repeat">What days do you want this task to repeat?</div>
-        <div className="days">
-            <Button className='sun' id="sun" onClick={handleDayClicked} style={{ backgroundColor: sun ? "lightgreen" : "red" }}>S</Button>
-            <Button className='mon' id="mon" onClick={handleDayClicked} style={{ backgroundColor: mon ? "lightgreen" : "red" }}>M</Button>
-            <Button className='tues' id="tues" onClick={handleDayClicked} style={{ backgroundColor: tues ? "lightgreen" : "red" }}>T</Button>
-            <Button className='wed' id="wed" onClick={handleDayClicked} style={{ backgroundColor: wed ? "lightgreen" : "red" }}>W</Button>
-            <Button className='thur' id="thur" onClick={handleDayClicked} style={{ backgroundColor: thur ? "lightgreen" : "red" }}>TR</Button>
-            <Button className='fri' id="fri" onClick={handleDayClicked} style={{ backgroundColor: fri ? "lightgreen" : "red" }}>F</Button>
-            <Button className='sat' id="sat" onClick={handleDayClicked} style={{ backgroundColor: sat ? "lightgreen" : "red" }}>SA</Button>
+        <div className='repeatDays'>
+            <div className="repeat">What days do you want this task to repeat?</div>
+            <div className="days">
+                <Button className='sun' id="sun" onClick={handleDayClicked} style={{ color: sun ? "black" : "white", backgroundColor: sun ? "lightgreen" : "red" }}>S</Button>
+                <Button className='mon' id="mon" onClick={handleDayClicked} style={{ color: mon ? "black" : "white", backgroundColor: mon ? "lightgreen" : "red" }}>M</Button>
+                <Button className='tues' id="tues" onClick={handleDayClicked} style={{ color: tues ? "black" : "white", backgroundColor: tues ? "lightgreen" : "red" }}>T</Button>
+                <Button className='wed' id="wed" onClick={handleDayClicked} style={{ color: wed ? "black" : "white", backgroundColor: wed ? "lightgreen" : "red" }}>W</Button>
+                <Button className='thur' id="thur" onClick={handleDayClicked} style={{ color: thur ? "black" : "white", backgroundColor: thur ? "lightgreen" : "red" }}>TR</Button>
+                <Button className='fri' id="fri" onClick={handleDayClicked} style={{ color: fri ? "black" : "white", backgroundColor: fri ? "lightgreen" : "red" }}>F</Button>
+                <Button className='sat' id="sat" onClick={handleDayClicked} style={{ color: sat ? "black" : "white", backgroundColor: sat ? "lightgreen" : "red" }}>SA</Button>
+            </div>
         </div>
 
         <div className="section">
         <TimePicker value = {time} onChange = {setTime}/>
-            <Dropdown id = "dropdownBtn" className="dropdownBtn" title={"Example"}>
-                <Dropdown.Toggle id="dropdown-autoclose-true " className="dropdownBtn">
+        <br></br>
+        <div></div>
+            <Dropdown id = "dropdownBtn" className="dropdownBtn"  title={"Example"}>
+                <Dropdown.Toggle id="dropdown-autoclose-true " style={{ border: 'black', backgroundColor: '#22577A', color: 'white' }} className="dropdownBtn">
                 {currentSection}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
@@ -289,14 +294,14 @@ useEffect(() =>{
                     })}
                 </Dropdown.Menu>
             </Dropdown>
-            {newSection && <form onSubmit={handleNewSection}>
+        </div>
+        {newSection && <form className='formInput'onSubmit={handleNewSection}>
             <label>
                 New Section:
                 <input type="text" className="taskInput" value={newSectionText} onChange={handleNewSectionTextChange}  />
             </label>
             <input type="submit" value="Submit"/>
         </form>}
-        </div>
     </div>
     </>
     )

@@ -5,55 +5,78 @@
     left: 50%;
     transform: translate(-50%, -50%);
     position: fixed;
-    border: 1px solid red;
-    background-color: white;
-    justify-content: center;
+    border: 2px solid black;
+    display: flex;
+    justify-content: space-evenly;
     align-items: center;
+    flex-direction: column;
     z-index: 1;
-    background-color: lightgray;
+    border-radius: 1%;
+    background-color: #38A3A5;
 }
 
-
-.taskForm{
-    background-color: orange;
-    width: 25%;
-    height: 25%;
-    z-index: 0;
-}
-
-.taskModalText{
-    color: orange;
+.repeat{
+    color: white;
 }
 
 .days{
+    width: 100%;
     padding-top: 15px;
     display: flex;
     justify-content: space-around;
+    
+}
+
+.repeatDays{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.submit{
+    position: absolute;
+    width: 15%;
+    height: 35px;
+    bottom: 0;
+    left: 42.5%;
+    transform: 'translateX(-50%)';
+    background-color: #22577A;
+    color: white;
+    margin-bottom: 10px;
 }
 
 .sun, .mon, .tues, .wed, .thur, .fri, .sat{
-     padding: 0 0;
-    display: inline-block;
-    /* margin: 0 auto; */
+    padding: 0 0;
     height: 40px;
     width: 40px;
     line-height: 40px;
     border: 1px solid black;
-    border-radius: 15px;
+    border-radius: 50%;
     border-color: black;
-    background-color: white;
     text-align: center;
 }
+
+.sun:hover, .mon:hover, .tues:hover, .wed:hover, .thur:hover, .fri:hover, .sat:hover{
+    border: black;
+}
+
 .cancel{
     height: 30px;
     width: 30px;
     position: absolute;
     right: 0;
     top: 0;
-    padding: 5px 0px;
-    margin: 5px 5px;
+    transform: translate(-50%, 50%);
     background-color: red;
     color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cancel:hover{
+    background-color: lightcoral;
 }
 
 .taskInput{
@@ -62,12 +85,25 @@
     border-bottom: 1px solid black;
     outline: none;
     margin-right: 5px; 
-    /* May remove margin-right later if I move the submit button */
+    color: white;
+    text-align: center;
+    width: 150%;
+}
+
+.formInput{
+    width: 200%;
+    color: orange;
+}
+
+.title{
+    font-size: 24px;
+    color: white;
+    position: absolute;
+    top: 0;
+    padding-top: 10px;
 }
 
 #dropdownBtn[aria-labelledby = ddown] {
-    background-color: red;
-    color: orange;
     max-width: 80px;
     border-radius: 0;
     margin: 0;
