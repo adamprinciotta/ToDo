@@ -260,7 +260,7 @@ useEffect(() =>{
 
         <div className='title'>Add a New Task</div>
         <form onSubmit={handleSubmit}>
-            <label style={{color: 'white'}}>
+            <label style={{color: 'white', fontSize: '20px', width: '40vw'}}>
                 Task:
                 <input type="text" className="taskInput" value={task} onChange={taskChange}  />
             </label>
@@ -281,7 +281,9 @@ useEffect(() =>{
         </div>
 
         <div className="section">
-        <TimePicker value = {time} onChange = {setTime}/>
+        {/* <TimePicker value = {time} onChange = {setTime} style={{paddingBottom: '10px'}}/> */}
+        <TimePicker value={time} onChange={setTime} style={{ paddingBottom: '10px' }} />
+
         <br></br>
         <div></div>
             <Dropdown id = "dropdownBtn" className="dropdownBtn"  title={"Example"}>
