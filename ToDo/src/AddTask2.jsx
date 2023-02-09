@@ -158,6 +158,11 @@ useEffect(() =>{
             // console.log("testRef: " + testRef)
             // console.log("testRef2: " + testRef2)
 
+            var upperTask = task.substring(1, task.length)
+            var upperTaskletter = task.charAt(0)
+            upperTaskletter = upperTaskletter.toUpperCase()
+            var upperTaskCombined = upperTaskletter+upperTask
+
             testRef2.get().then(function(doc){
                 if(doc.exists){ //If they already have a task made
                     firestore.collection("ListItem").doc(uid).collection("Tasks").doc(task).set(
@@ -270,13 +275,13 @@ useEffect(() =>{
         <div className='repeatDays'>
             <div className="repeat">What days do you want this task to repeat?</div>
             <div className="days">
-                <Button className='sun' id="sun" onClick={handleDayClicked} style={{ color: sun ? "black" : "white", backgroundColor: sun ? "lightgreen" : "red" }}>S</Button>
-                <Button className='mon' id="mon" onClick={handleDayClicked} style={{ color: mon ? "black" : "white", backgroundColor: mon ? "lightgreen" : "red" }}>M</Button>
-                <Button className='tues' id="tues" onClick={handleDayClicked} style={{ color: tues ? "black" : "white", backgroundColor: tues ? "lightgreen" : "red" }}>T</Button>
-                <Button className='wed' id="wed" onClick={handleDayClicked} style={{ color: wed ? "black" : "white", backgroundColor: wed ? "lightgreen" : "red" }}>W</Button>
-                <Button className='thur' id="thur" onClick={handleDayClicked} style={{ color: thur ? "black" : "white", backgroundColor: thur ? "lightgreen" : "red" }}>TR</Button>
-                <Button className='fri' id="fri" onClick={handleDayClicked} style={{ color: fri ? "black" : "white", backgroundColor: fri ? "lightgreen" : "red" }}>F</Button>
-                <Button className='sat' id="sat" onClick={handleDayClicked} style={{ color: sat ? "black" : "white", backgroundColor: sat ? "lightgreen" : "red" }}>SA</Button>
+                <Button className='sun' id="sun" onClick={handleDayClicked} style={{ color: sun ? "black" : "white", backgroundColor: sun ? "lightgreen" : "#FF5964" }}>S</Button>
+                <Button className='mon' id="mon" onClick={handleDayClicked} style={{ color: mon ? "black" : "white", backgroundColor: mon ? "lightgreen" : "#FF5964" }}>M</Button>
+                <Button className='tues' id="tues" onClick={handleDayClicked} style={{ color: tues ? "black" : "white", backgroundColor: tues ? "lightgreen" : "#FF5964" }}>T</Button>
+                <Button className='wed' id="wed" onClick={handleDayClicked} style={{ color: wed ? "black" : "white", backgroundColor: wed ? "lightgreen" : "#FF5964" }}>W</Button>
+                <Button className='thur' id="thur" onClick={handleDayClicked} style={{ color: thur ? "black" : "white", backgroundColor: thur ? "lightgreen" : "#FF5964" }}>TR</Button>
+                <Button className='fri' id="fri" onClick={handleDayClicked} style={{ color: fri ? "black" : "white", backgroundColor: fri ? "lightgreen" : "#FF5964" }}>F</Button>
+                <Button className='sat' id="sat" onClick={handleDayClicked} style={{ color: sat ? "black" : "white", backgroundColor: sat ? "lightgreen" : "#FF5964" }}>SA</Button>
             </div>
         </div>
 
@@ -287,7 +292,7 @@ useEffect(() =>{
         <br></br>
         <div></div>
             <Dropdown id = "dropdownBtn" className="dropdownBtn"  title={"Example"}>
-                <Dropdown.Toggle id="dropdown-autoclose-true " style={{ border: 'black', backgroundColor: '#22577A', color: 'white' }} className="dropdownBtn">
+                <Dropdown.Toggle id="dropdown-autoclose-true " style={{ border: 'black', backgroundColor: '#5158BB', color: 'white' }} className="dropdownBtn">
                 {currentSection}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>

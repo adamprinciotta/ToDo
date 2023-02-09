@@ -51,7 +51,8 @@ function DisplayTask(props) {
     function checkShouldDisplay(){
         const splitDays = props.days.split('')
         const displayBool = splitDays[props.day]
-        if(displayBool == 0){
+        console.log("This is props.days: " + props.days)
+        if(displayBool == 0 && props.days !== "0000000"){
             setShouldDisplay(false)
         }
         else{
@@ -140,14 +141,18 @@ function DisplayTask(props) {
                   <div className="taskName" style={{
                       textDecoration: props.checked ? "line-through" : "none", paddingLeft: "20px" }}>{props.name}
                   </div>
+                  <div className="timeAndSection">
+                  <div className='time'>{hourToDisplay}</div>
+                  <div className="sectionName">
+                    {props.section}
+                  </div>
+                </div>
                   {/* style={{alignSelf: 'flex-end'}} */}
-                  <div className='time' >{hourToDisplay}</div>
+                  
               </div>
               <div className='spacerSide' style={{paddingLeft: "10px"}}></div>
               {/* style={{position: 'relative', right: '-50px'}} */}
-              <div className="sectionName">
-                    {props.section}
-              </div>
+              
               <div className='spacerSide' style={{paddingLeft: "10px"}}></div>
               <div className="buttons">
                 <img onClick={edit} src={editImage} width="50px" height="50px"></img>

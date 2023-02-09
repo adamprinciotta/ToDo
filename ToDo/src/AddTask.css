@@ -12,7 +12,7 @@
     flex-direction: column;
     z-index: 1;
     border-radius: 1%;
-    background-color: #829399;
+    background-color: #808F87;
 }
 
 .repeat{
@@ -45,8 +45,10 @@
     bottom: 0;
     left: 42.5%;
     transform: 'translateX(-50%)';
-    background-color: #22577A;
-    color: white;
+    /* background-color: #22577A;
+     */
+     background-color: #FFD3BA;
+    color: black;
     margin-bottom: 10px;
 }
 
@@ -95,7 +97,6 @@
     width: 75%;
 }
 
-
 .title{
     font-size: 24px;
     color: white;
@@ -108,4 +109,5 @@
     max-width: 80px;
     border-radius: 0;
     margin: 0;
+    
   }

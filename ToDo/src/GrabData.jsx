@@ -62,6 +62,7 @@ function GrabData(){
   }
 
   function handleDelete(taskName){
+    console.log("Task Name to delete: " + taskName)
     firestore.collection("ListItem").doc(uid).collection("Tasks").doc(taskName).delete()
     .then(function() {
         console.log("Deleted");
@@ -120,7 +121,7 @@ function GrabData(){
     return(
       <>
       <h1 style={{paddingBottom: '10px'}}>To Do List</h1>
-        <Button onClick={addTask} className="addTaskBtn" style={{borderColor: "black"}}>Add Task</Button>
+        <Button onClick={addTask} className="addTaskBtn" style={{backgroundColor: '#5158BB', borderColor: "black", width: '33vw', marginLeft:'auto', marginRight: 'auto'}}>Add Task</Button>
         {dataLoaded && (tasks.map(task =>(
           <DisplayTask 
             key={task.id} 

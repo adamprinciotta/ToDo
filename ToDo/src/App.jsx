@@ -47,7 +47,7 @@ function SignIn() {
 
 function SignOut(){
   return auth.currentUser && (
-    <button onClick={() => auth.signOut()} style={{position: 'absolute', top: '0', right: '0', marginRight: '10px', marginTop: '10px'}}>Sign Out</button>
+    <button onClick={() => auth.signOut()} style={{color: 'white', backgroundColor: '#192A51',position: 'absolute', top: '0', right: '0', marginRight: '10px', marginTop: '10px'}}>Sign Out</button>
   )
 }
 

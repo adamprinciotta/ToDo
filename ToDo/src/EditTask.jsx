@@ -67,6 +67,36 @@ useEffect(() =>{
         console.log(ListItem)
     })
 
+    setTask(props.taskToEdit.name)
+    console.log("props.taskToEdit.time: " + props.taskToEdit.days)
+    console.log("checking substr 0 -> 1 : " + props.taskToEdit.days.substring(0, 1))
+    if(props.taskToEdit.days.charAt(0) == '1'){
+        setSun(true)
+    }
+    if(props.taskToEdit.days.charAt(1) == '1'){
+        setMon(true)
+    }
+    if(props.taskToEdit.days.charAt(2) == '1'){
+        setTues(true)
+    }
+    if(props.taskToEdit.days.charAt(3) == '1'){
+        setWed(true)
+    }
+    if(props.taskToEdit.days.charAt(4) == '1'){
+        setThur(true)
+    }
+    if(props.taskToEdit.days.charAt(5) == '1'){
+        setFri(true)
+    }
+    if(props.taskToEdit.days.charAt(6) == '1'){
+        setSat(true)
+    }
+
+    setTime(props.taskToEdit.time)
+
+    setCurrentSection(props.taskToEdit.section)
+
+
     //Updates the render list to be the sections made above
     setNewSectionTest(sections)
 }, [])
@@ -150,6 +180,10 @@ useEffect(() =>{
 
             const testRef2 = firestore.collection("ListItem").doc(uid)
 
+            var upperTask = task.substring(1, task.length)
+            var upperTaskletter = task.charAt(0)
+            upperTaskletter = upperTaskletter.toUpperCase()
+            var upperTaskCombined = upperTaskletter+upperTask
 
             testRef2.get().then(function(){
 
@@ -266,11 +300,11 @@ useEffect(() =>{
         <Button onClick={handleCancel} className="cancel">X</Button>
 
         <form onSubmit={handleSubmit}>
-            <label>
+            <label style={{color: 'white', fontSize: '20px', width: '40vw'}}>
                 Task:
                 <input type="text" className="taskInput" value={task} onChange={taskChange}  />
             </label>
-            <input type="submit" value="Submit"/>
+            <input className='submit' type="submit" value="Submit"/>
         </form>
 
         <div className="repeat">What days do you want this task to repeat?</div>

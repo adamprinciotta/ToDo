@@ -316,7 +316,7 @@ useEffect(() =>{
 
         <div className="section">
         <TimePicker value = {time} onChange = {setTime}/>
-            <Dropdown id = "dropdownBtn" className="dropdownBtn" title={"Example"}>
+            <Dropdown id = "dropdownBtn" className="dropdownBtn" title={"Example"} style={{backgroundColor: '#CC2936'}}>
                 <Dropdown.Toggle id="dropdown-autoclose-true " className="dropdownBtn">
                 {currentSection}
                 </Dropdown.Toggle>
