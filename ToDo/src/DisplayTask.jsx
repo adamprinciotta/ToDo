@@ -140,15 +140,18 @@ function DisplayTask(props) {
                   <div className="taskName" style={{
                       textDecoration: props.checked ? "line-through" : "none", paddingLeft: "20px" }}>{props.name}
                   </div>
-                  <div className='time'>{hourToDisplay}</div>
+                  {/* style={{alignSelf: 'flex-end'}} */}
+                  <div className='time' >{hourToDisplay}</div>
               </div>
-              <div className="sectionName" style={{position: 'relative', right: '-50px'}}>
+              <div className='spacerSide' style={{paddingLeft: "10px"}}></div>
+              {/* style={{position: 'relative', right: '-50px'}} */}
+              <div className="sectionName">
                     {props.section}
               </div>
-              <div className='spacer' style={{paddingTop: "15px"}}></div>
+              <div className='spacerSide' style={{paddingLeft: "10px"}}></div>
               <div className="buttons">
-                <img onClick={edit} src={editImage} width="50" height="50"></img>
-                <img onClick={deleteTask} src={trashImage} width="50" height="50"></img>
+                <img onClick={edit} src={editImage} width="50px" height="50px"></img>
+                <img onClick={deleteTask} src={trashImage} width="50px" height="50px"></img>
               </div>
             </div>
             <div className='spacer' style={{paddingTop: "15px"}}></div>

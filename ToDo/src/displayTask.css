@@ -20,3 +20,54 @@
     display:flex;
     justify-content: space-evenly;
 }
+
+.taskContainer{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 80vw;
+}
+
+.task {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    height: 100%;
+    min-height: 115px;
+}
+  
+.checkboxStyle {
+    height: 35px !important;
+    width: 35px !important;
+    margin-right: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+  
+.taskName {
+    align-self: center;
+    margin-right: auto;
+    width: 90%;
+    
+}
+  
+.time {
+    align-self: flex-end;
+    margin-left: auto;
+}
+  
+.sectionName{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-height: 115px;
+    min-height: 10vh;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 50px;
+}
