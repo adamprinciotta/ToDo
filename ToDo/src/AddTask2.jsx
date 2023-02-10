@@ -8,8 +8,9 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 
-import TimePicker from 'react-time-picker'
-
+import TimePicker from 'rc-time-picker';
+import ReactDOM from 'react-dom';
+import 'rc-time-picker/assets/index.css';
 
 function AddTask2(props) {
 
@@ -261,55 +262,59 @@ useEffect(() =>{
     return(
     <>
     <div className="taskModal" style={{paddingTop: "15px"}}> 
-        <Button onClick={handleCancel} className="cancel">X</Button>
+    <Button onClick={handleCancel} className="cancel">X</Button>
+        <div className="addTaskContainer">
+            <div className='title'>Add a New Task</div>
+            <form onSubmit={handleSubmit}>
+                <label style={{color: 'black', fontSize: '20px', width: '40vw'}}>
+                    Task:
+                    <input type="text" className="taskInput" value={task} onChange={taskChange}  />
+                </label>
+                <input className='submit' type="submit" value="Submit"/>
+            </form>
 
-        <div className='title'>Add a New Task</div>
-        <form onSubmit={handleSubmit}>
-            <label style={{color: 'white', fontSize: '20px', width: '40vw'}}>
-                Task:
-                <input type="text" className="taskInput" value={task} onChange={taskChange}  />
-            </label>
-            <input className='submit' type="submit" value="Submit"/>
-        </form>
-
-        <div className='repeatDays'>
-            <div className="repeat">What days do you want this task to repeat?</div>
-            <div className="days">
-                <Button className='sun' id="sun" onClick={handleDayClicked} style={{ color: sun ? "black" : "white", backgroundColor: sun ? "lightgreen" : "#FF5964" }}>S</Button>
-                <Button className='mon' id="mon" onClick={handleDayClicked} style={{ color: mon ? "black" : "white", backgroundColor: mon ? "lightgreen" : "#FF5964" }}>M</Button>
-                <Button className='tues' id="tues" onClick={handleDayClicked} style={{ color: tues ? "black" : "white", backgroundColor: tues ? "lightgreen" : "#FF5964" }}>T</Button>
-                <Button className='wed' id="wed" onClick={handleDayClicked} style={{ color: wed ? "black" : "white", backgroundColor: wed ? "lightgreen" : "#FF5964" }}>W</Button>
-                <Button className='thur' id="thur" onClick={handleDayClicked} style={{ color: thur ? "black" : "white", backgroundColor: thur ? "lightgreen" : "#FF5964" }}>TR</Button>
-                <Button className='fri' id="fri" onClick={handleDayClicked} style={{ color: fri ? "black" : "white", backgroundColor: fri ? "lightgreen" : "#FF5964" }}>F</Button>
-                <Button className='sat' id="sat" onClick={handleDayClicked} style={{ color: sat ? "black" : "white", backgroundColor: sat ? "lightgreen" : "#FF5964" }}>SA</Button>
+            <div className='repeatDays'>
+                <div className="repeat">What days do you want this task to repeat?</div>
+                <div className="days">
+                    <Button className='sun' id="sun" onClick={handleDayClicked} style={{ color: sun ? "black" : "white", backgroundColor: sun ? "lightgreen" : "#FF5964" }}>S</Button>
+                    <Button className='mon' id="mon" onClick={handleDayClicked} style={{ color: mon ? "black" : "white", backgroundColor: mon ? "lightgreen" : "#FF5964" }}>M</Button>
+                    <Button className='tues' id="tues" onClick={handleDayClicked} style={{ color: tues ? "black" : "white", backgroundColor: tues ? "lightgreen" : "#FF5964" }}>T</Button>
+                    <Button className='wed' id="wed" onClick={handleDayClicked} style={{ color: wed ? "black" : "white", backgroundColor: wed ? "lightgreen" : "#FF5964" }}>W</Button>
+                    <Button className='thur' id="thur" onClick={handleDayClicked} style={{ color: thur ? "black" : "white", backgroundColor: thur ? "lightgreen" : "#FF5964" }}>TR</Button>
+                    <Button className='fri' id="fri" onClick={handleDayClicked} style={{ color: fri ? "black" : "white", backgroundColor: fri ? "lightgreen" : "#FF5964" }}>F</Button>
+                    <Button className='sat' id="sat" onClick={handleDayClicked} style={{ color: sat ? "black" : "white", backgroundColor: sat ? "lightgreen" : "#FF5964" }}>SA</Button>
+                </div>
             </div>
-        </div>
 
-        <div className="section">
-        {/* <TimePicker value = {time} onChange = {setTime} style={{paddingBottom: '10px'}}/> */}
-        <TimePicker value={time} onChange={setTime} style={{ paddingBottom: '10px' }} />
+            {/* <TimePicker value={time} onChange={setTime} style={{ paddingBottom: '10px', color: 'black' }} /> THIS IS THE TIME PICKER I HAVE BEEN USING */}
 
-        <br></br>
-        <div></div>
-            <Dropdown id = "dropdownBtn" className="dropdownBtn"  title={"Example"}>
-                <Dropdown.Toggle id="dropdown-autoclose-true " style={{ border: 'black', backgroundColor: '#5158BB', color: 'white' }} className="dropdownBtn">
-                {currentSection}
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                    {newSectionTest.map((index) => {
-                        return(index)
-                    })}
-                </Dropdown.Menu>
-            </Dropdown>
+
+            <TimePicker format='hh:mm a'  showSecond={false} use12Hours='true'></TimePicker>
+            <div className="section">
+            {/* <TimePicker value = {time} onChange = {setTime} style={{paddingBottom: '10px'}}/> */}
+            
+            
+                <Dropdown id = "dropdownBtn" className="dropdownBtn"  title={"Example"}>
+                    <Dropdown.Toggle id="dropdown-autoclose-true " style={{ border: 'black', backgroundColor: '#5158BB', color: 'white' }} className="dropdownBtn">
+                    {currentSection}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        {newSectionTest.map((index) => {
+                            return(index)
+                        })}
+                    </Dropdown.Menu>
+                </Dropdown>
+            </div>
+            {newSection && <form className='formInput'onSubmit={handleNewSection}>
+                <label>
+                    New Section:
+                    <input type="text" className="taskInput" value={newSectionText} onChange={handleNewSectionTextChange}  />
+                </label>
+                <input type="submit" value="Submit"/>
+            </form>}
         </div>
-        {newSection && <form className='formInput'onSubmit={handleNewSection}>
-            <label>
-                New Section:
-                <input type="text" className="taskInput" value={newSectionText} onChange={handleNewSectionTextChange}  />
-            </label>
-            <input type="submit" value="Submit"/>
-        </form>}
     </div>
+
     </>
     )
 }

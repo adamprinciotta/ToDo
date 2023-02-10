@@ -12,11 +12,21 @@
     flex-direction: column;
     z-index: 1;
     border-radius: 1%;
-    background-color: #808F87;
+    background-color: #DCBCD2;
+}
+
+.addTaskContainer{
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+
 }
 
 .repeat{
-    color: white;
+    color: black;
 }
 
 .days{
@@ -47,8 +57,8 @@
     transform: 'translateX(-50%)';
     /* background-color: #22577A;
      */
-     background-color: #FFD3BA;
-    color: black;
+     background-color: #192A51;
+    color: white;
     margin-bottom: 10px;
 }
 
@@ -92,14 +102,14 @@
     border-bottom: 1px solid black;
     outline: none;
     margin-right: 5px; 
-    color: white;
+    color: black;
     text-align: center;
     width: 75%;
 }
 
 .title{
     font-size: 24px;
-    color: white;
+    color: black;
     position: absolute;
     top: 0;
     padding-top: 10px;
@@ -111,3 +121,35 @@
     margin: 0;
     
   }
+
+  .react-time-picker {
+    font-size: 20px;
+    color: black;
+  }
+  
+  .react-time-picker__input {
+    color: black;
+  }
+  
+  .react-time-picker__clock-time {
+    color: black;
+  }
+  
+  .react-time-picker__clock-am-pm {
+    color: black;
+  }
+  
+  .react-time-picker__clock {
+    width: 200px;
+    height: 200px;
+    background-color: #333;
+  }
+  
+  .react-time-picker__clock-face {
+    background-color: blue;
+  }
+  
+  .react-time-picker__clock-hand {
+    background-color: red;
+  }
+  
