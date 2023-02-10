@@ -94,9 +94,9 @@ function App() {
 
   return (
     <>
-    <section>
+    <section style={{height: '100vh'}}>
       {user ? 
-      <div className="fullPage">
+      <div className="fullPage" style={{height: '100vh'}}>
         <SignOut/>
         <GrabData/>
         {/* <Task list={list} setList={setList}/> */}

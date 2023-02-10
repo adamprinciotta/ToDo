@@ -121,8 +121,8 @@ function GrabData(){
     return(
       <>
       <h1 style={{paddingBottom: '10px'}}>To Do List</h1>
-        <Button onClick={addTask} className="addTaskBtn" style={{backgroundColor: '#5158BB', borderColor: "black", width: '33vw', marginLeft:'auto', marginRight: 'auto'}}>Add Task</Button>
-        {dataLoaded && (tasks.map(task =>(
+        <Button onClick={addTask} className="addTaskBtn" style={{backgroundColor: '#192A51', borderColor: "black", width: '33vw', marginLeft:'auto', marginRight: 'auto'}}>Add Task</Button>
+        {dataLoaded && (<div style={{overflowY:'auto', overflowX: 'hidden', height: '75vh', width: '92%'}}>{tasks.map(task =>(
           <DisplayTask 
             key={task.id} 
             name={task.name} 
@@ -139,7 +139,7 @@ function GrabData(){
             taskToEdit={taskToEdit} 
             setTaskToEdit={setTaskToEdit}
             handleDelete={handleDelete}/>
-        )))}
+        ))}</div>)}
         {add && 
         <AddTask2 
           sectionsList={sectionsList} 
