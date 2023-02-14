@@ -122,7 +122,13 @@
     
   }
 
-  .react-time-picker {
+
+.timePickerClass{
+  color: black;
+  border-radius: 50%;
+}
+
+  /* .react-time-picker {
     font-size: 20px;
     color: black;
   }
@@ -151,5 +157,5 @@
   
   .react-time-picker__clock-hand {
     background-color: red;
-  }
+  } */
   

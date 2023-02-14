@@ -8,9 +8,11 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 
-import TimePicker from 'rc-time-picker';
+// import TimePicker from 'rc-time-picker';
 import ReactDOM from 'react-dom';
-import 'rc-time-picker/assets/index.css';
+// import 'rc-time-picker/assets/index.css';
+
+import TimePicker from 'react-time-picker'
 
 function AddTask2(props) {
 
@@ -72,6 +74,10 @@ useEffect(() =>{
     sections.forEach(ListItem =>{
         console.log(ListItem)
     })
+    
+    //Gets and sets the current time to be the time they may want to set the task
+    let date = new Date()
+    setTime(date.getHours() + ':' + date.getMinutes())
 
     //Updates the render list to be the sections made above
     setNewSectionTest(sections)
@@ -81,6 +87,7 @@ useEffect(() =>{
     
     const [newSection, setNewSection] = useState(false)
     const [newSectionText, setNewSectionText] = useState('')
+
 
     function handleDayClicked(event){
         if(event.target.id === 'sun'){
@@ -286,10 +293,9 @@ useEffect(() =>{
                 </div>
             </div>
 
-            {/* <TimePicker value={time} onChange={setTime} style={{ paddingBottom: '10px', color: 'black' }} /> THIS IS THE TIME PICKER I HAVE BEEN USING */}
+            <TimePicker className = 'timePickerClass' required={true} disableClock={true} value={time} onChange={setTime} style={{ paddingBottom: '500px', color: 'black' }} /> {/*THIS IS THE TIME PICKER I HAVE BEEN USING */}
 
-
-            <TimePicker format='hh:mm a'  showSecond={false} use12Hours='true'></TimePicker>
+            {/* <TimePicker  format='hh:mm a' showSecond={false} use12Hours={true} placeholder='10:00am' onChange={updateTime()}></TimePicker> */}
             <div className="section">
             {/* <TimePicker value = {time} onChange = {setTime} style={{paddingBottom: '10px'}}/> */}
             
