@@ -57,7 +57,7 @@
     transform: 'translateX(-50%)';
     /* background-color: #22577A;
      */
-     background-color: #192A51;
+    background-color: #192A51;
     color: white;
     margin-bottom: 10px;
 }
@@ -126,6 +126,24 @@
 .timePickerClass{
   color: black;
   border-radius: 50%;
+}
+
+
+.formInput{
+  position: absolute;
+  width: 50%;
+  height: 25%;
+  border: 1px solid black;
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.newSubmit{
+  background-color: #192A51;
 }
 
   /* .react-time-picker {

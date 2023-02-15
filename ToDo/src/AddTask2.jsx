@@ -266,6 +266,11 @@ useEffect(() =>{
         setNewSectionText(event.target.value)
     }
 
+    function handleSectionCancel(){
+        setNewSection(false)
+        setNewSectionText('')
+    }
+
     return(
     <>
     <div className="taskModal" style={{paddingTop: "15px"}}> 
@@ -292,9 +297,10 @@ useEffect(() =>{
                     <Button className='sat' id="sat" onClick={handleDayClicked} style={{ color: sat ? "black" : "white", backgroundColor: sat ? "lightgreen" : "#FF5964" }}>SA</Button>
                 </div>
             </div>
-
-            <TimePicker className = 'timePickerClass' required={true} disableClock={true} value={time} onChange={setTime} style={{ paddingBottom: '500px', color: 'black' }} /> {/*THIS IS THE TIME PICKER I HAVE BEEN USING */}
-
+                
+            <TimePicker  required={true} disableClock={true} value={time} onChange={setTime}  /> {/*THIS IS THE TIME PICKER I HAVE BEEN USING */}
+            
+            {/* className = 'timePickerClass'  style={{ paddingBottom: '500px', color: 'inherit' }}*/}
             {/* <TimePicker  format='hh:mm a' showSecond={false} use12Hours={true} placeholder='10:00am' onChange={updateTime()}></TimePicker> */}
             <div className="section">
             {/* <TimePicker value = {time} onChange = {setTime} style={{paddingBottom: '10px'}}/> */}
@@ -311,12 +317,13 @@ useEffect(() =>{
                     </Dropdown.Menu>
                 </Dropdown>
             </div>
-            {newSection && <form className='formInput'onSubmit={handleNewSection}>
+            {newSection && <form className='formInput' onSubmit={handleNewSection}>
                 <label>
                     New Section:
                     <input type="text" className="taskInput" value={newSectionText} onChange={handleNewSectionTextChange}  />
                 </label>
-                <input type="submit" value="Submit"/>
+                <input className='newSubmit' type="submit" value="Submit" />
+                <Button onClick={handleSectionCancel} className="cancel" style={{marginTop: '-10px', marginRight: '-10px'}}>X</Button>
             </form>}
         </div>
     </div>

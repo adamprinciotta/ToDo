@@ -67,8 +67,12 @@ function DisplayTask(props) {
             var AMPM = 'PM'
             hour -= 12
         }
+        if(hour == '00'){
+            hour = '12'
+        }
+        console.log("this is the hour: " + hour)
         var mins = props.time.substring(3, 5)
-        setHourToDisplay(hour + ':' + mins + AMPM)
+        setHourToDisplay(hour + ':' + mins +  AMPM)
         console.log("SHOULD I DISPLAY " + props.name + " TODAY : " + shouldDisplay)
     }
 

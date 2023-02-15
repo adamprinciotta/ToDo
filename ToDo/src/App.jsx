@@ -13,7 +13,6 @@ import 'firebase/compat/auth';
 //import 'firebase/analytics';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 import GrabData from './GrabData';
 
@@ -29,7 +28,6 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 
-// import Modal from 'react-bootstrap/Modal';
 
 function SignIn() {
   const signInWithGoogle = () => {
@@ -54,44 +52,9 @@ function SignOut(){
 
 
 function App() {
-  const [list, setList] = useState([{name: 'test', checked: false, section: '', days: '0000000'}])
-  const [add, setAdd] = useState(false)
-
-  const [storedSections, setStoredSections] = useState(['test1', 'test2'])
-
+  
   const [user] = useAuthState(auth)
-
-  // function handleSectionClick(item) {
-  //   console.log("sections item props children: " + item)
-  //   //if they select the Add New section from the dropdown then bring up the option to type a new one
-  //   if (item === "Add New") {
-  //       console.log(item + "=== Add New")
-  //       setNewSection(true)
-  //     }
-  //     //updates the header for the dropdown and keeps track of which section should be saved for the task
-  //     else{
-  //       setCurrentSection(item)
-  //     }
-  // }
-
-  // const [sections, setSections] = useState([<Dropdown.Item onClick={()=>handleSectionClick("Work")}>Work</Dropdown.Item>, 
-  // <Dropdown.Item onClick={()=>handleSectionClick("Personal")}>Personal</Dropdown.Item>, 
-  // <Dropdown.Item onClick={()=>handleSectionClick("Add New")}>Add New</Dropdown.Item>])
-
-
-  // function displayTasks(){
-  //   console.log(list)
-  //   console.log("This is the list length:" + list.length)
-  // }
-
-  // function checkListSize() {
-  //   console.log("list: " + list.length)
-  // }
-
-
-
-
-
+  
   return (
     <>
     <section style={{height: '100vh'}}>
@@ -99,17 +62,8 @@ function App() {
       <div className="fullPage" style={{height: '100vh'}}>
         <SignOut/>
         <GrabData/>
-        {/* <Task list={list} setList={setList}/> */}
-        
-        
-        {/* <AddTaskModal show={add} onHide={() => setAdd(false)}/> */}
-
-        {/* displayTasks={displayTasks} */}
-        {/* {add && (<AddTask list={list} setList={setList} add={add} setAdd={setAdd} checkListSize={checkListSize} storedSections={storedSections} setStoredSections={setStoredSections}/>)} */}
       </div> : <SignIn/>}
     </section>
-    
-    
     </>
   )
 }

@@ -296,6 +296,11 @@ useEffect(() =>{
         setNewSectionText(event.target.value)
     }
 
+    function handleSectionCancel(){
+        setNewSection(false)
+        setNewSectionText('')
+    }
+
     return(
 
         <>
@@ -342,13 +347,14 @@ useEffect(() =>{
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
-                {newSection && <form className='formInput'onSubmit={handleNewSection}>
-                    <label>
-                        New Section:
-                        <input type="text" className="taskInput" value={newSectionText} onChange={handleNewSectionTextChange}  />
-                    </label>
-                    <input type="submit" value="Submit"/>
-                </form>}
+                {newSection && <form className='formInput' onSubmit={handleNewSection}>
+                <label>
+                    New Section:
+                    <input type="text" className="taskInput" value={newSectionText} onChange={handleNewSectionTextChange}  />
+                </label>
+                <input className='newSubmit' type="submit" value="Submit" />
+                <Button onClick={handleSectionCancel} className="cancel" style={{marginTop: '-10px', marginRight: '-10px'}}>X</Button>
+            </form>}
             </div>
         </div>
     
