@@ -63,17 +63,19 @@ function DisplayTask(props) {
         var hour = props.time.substring(0, 2)
         var AMPM = 'AM'
         var parseHour = parseInt(hour)
-        if(parseHour > 12){
+        
+        //if it's at noon or later, put it back in 12 hour display and make it PM
+        if(parseHour >= 12){
             var AMPM = 'PM'
             hour -= 12
         }
-        if(hour == '00'){
-            hour = '12'
-        }
-        console.log("this is the hour: " + hour)
         var mins = props.time.substring(3, 5)
-        setHourToDisplay(hour + ':' + mins +  AMPM)
-        console.log("SHOULD I DISPLAY " + props.name + " TODAY : " + shouldDisplay)
+        //if it's midnight, set the hour to 12
+        if(hour=='00'){
+            hour = 12
+        }
+        //update hour to display
+        setHourToDisplay(hour + ':' + mins + AMPM)
     }
 
 
