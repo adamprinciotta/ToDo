@@ -69,7 +69,9 @@ function DisplayTask(props) {
             var AMPM = 'PM'
             hour -= 12
         }
-        var mins = props.time.substring(3, 5)
+        var mins = ''
+        mins = props.time.substring(3, 5)
+        console.log(mins)
         //if it's midnight, set the hour to 12
         if(hour=='00'){
             hour = 12
@@ -153,13 +155,12 @@ function DisplayTask(props) {
                     {props.section}
                   </div>
                 </div>
-                  {/* style={{alignSelf: 'flex-end'}} */}
                   
               </div>
+
+              {/* <div className='spacerSide' style={{paddingLeft: "10px"}}></div> */}
               <div className='spacerSide' style={{paddingLeft: "10px"}}></div>
-              {/* style={{position: 'relative', right: '-50px'}} */}
-              
-              <div className='spacerSide' style={{paddingLeft: "10px"}}></div>
+
               <div className="buttons">
                 <img onClick={edit} src={editImage} width="50px" height="50px"></img>
                 <img onClick={deleteTask} src={trashImage} width="50px" height="50px"></img>
@@ -170,7 +171,7 @@ function DisplayTask(props) {
       </div>)}
       {deleteModal && 
       <div className="deleteModal">
-        <div className='verify'>Are you sure you want to delete this?</div>
+        <div className='verify'>Are you sure you want to delete this task?</div>
         <br></br>
         <div className="choice">
             <div onClick = {handleNo}setclassName='No'><Button className='btn btn-danger'>No</Button></div>

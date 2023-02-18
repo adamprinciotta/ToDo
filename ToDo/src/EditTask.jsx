@@ -133,7 +133,8 @@ useEffect(() =>{
     }
 
     const taskChange = event =>{
-        setTask(event.target.value)
+        var firstLetterUpper = event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1)
+        setTask(firstLetterUpper)
     }
 
     const handleSubmit = async (event) => {

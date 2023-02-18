@@ -118,9 +118,28 @@ function GrabData(){
       
     },[rerender, sectionsList, dataLoaded]) //dataLoaded makes sure it rerenders again after the data is grabbed
 
+    function uncheckAll(){
+      tasks.map(task => {
+        console.log("About to try to set")
+        firestore.collection("ListItem").doc(uid).collection("Tasks").doc(task.name).set( //update the task with the new values
+        {
+            days: task.days,
+            name: task.name,
+            section: task.section,
+            time: task.time,
+            checked: false
+        }
+    ).then(function(){
+        console.log("Unchecked all")
+        rerenderGrabData()
+    })
+      })
+    }
+
     return(
       <>
       <h1 style={{paddingBottom: '10px'}}>To Do List</h1>
+      <Button style={{marginBottom: '10px', backgroundColor: '#192A51', borderColor: 'black', }} onClick={uncheckAll}>Uncheck All</Button>
         <Button onClick={addTask} className="addTaskBtn" style={{backgroundColor: '#192A51', borderColor: "black", width: '33vw', marginLeft:'auto', marginRight: 'auto'}}>Add Task</Button>
         {dataLoaded && (<div style={{overflowY:'auto', overflowX: 'hidden', height: '75vh', width: '92%'}}>{tasks.map(task =>(
           <DisplayTask 

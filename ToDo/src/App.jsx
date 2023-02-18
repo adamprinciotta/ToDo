@@ -45,7 +45,7 @@ function SignIn() {
 
 function SignOut(){
   return auth.currentUser && (
-    <button onClick={() => auth.signOut()} style={{color: 'white', backgroundColor: '#192A51',position: 'absolute', top: '0', right: '0', marginRight: '10px', marginTop: '10px'}}>Sign Out</button>
+    <button onClick={() => auth.signOut()}  className='signout'>Sign Out</button>
   )
 }
 
@@ -57,10 +57,10 @@ function App() {
   
   return (
     <>
-    <section style={{height: '100vh'}}>
+    <section >
       {user ? 
-      <div className="fullPage" style={{height: '100vh'}}>
-        <SignOut/>
+      <div className="fullPage" style={{height: '90vh'}}>
+        <SignOut  />
         <GrabData/>
       </div> : <SignIn/>}
     </section>

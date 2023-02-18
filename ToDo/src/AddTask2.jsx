@@ -114,7 +114,8 @@ useEffect(() =>{
     }
 
     const taskChange = event =>{
-        setTask(event.target.value)
+        var firstLetterUpper = event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1)
+        setTask(firstLetterUpper)
     }
 
     const handleSubmit = async (event) => {
@@ -263,7 +264,8 @@ useEffect(() =>{
       }
 
     const handleNewSectionTextChange = event =>{
-        setNewSectionText(event.target.value)
+        var firstLetterUpper = event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1)
+        setNewSectionText(firstLetterUpper)
     }
 
     function handleSectionCancel(){
@@ -277,7 +279,7 @@ useEffect(() =>{
     <Button onClick={handleCancel} className="cancel">X</Button>
         <div className="addTaskContainer">
             <div className='title'>Add a New Task</div>
-            <form onSubmit={handleSubmit}>
+            <form className='taskForm' onSubmit={handleSubmit}>
                 <label style={{color: 'black', fontSize: '20px', width: '40vw'}}>
                     Task:
                     <input type="text" className="taskInput" value={task} onChange={taskChange}  />
@@ -320,9 +322,9 @@ useEffect(() =>{
             {newSection && <form className='formInput' onSubmit={handleNewSection}>
                 <label>
                     New Section:
-                    <input type="text" className="taskInput" value={newSectionText} onChange={handleNewSectionTextChange}  />
+                    <input type="text" className="taskInputTwo" value={newSectionText} onChange={handleNewSectionTextChange}  />
                 </label>
-                <input className='newSubmit' type="submit" value="Submit" />
+                <input className='newSubmit' type="submit" value="Submit"/>
                 <Button onClick={handleSectionCancel} className="cancel" style={{marginTop: '-10px', marginRight: '-10px'}}>X</Button>
             </form>}
         </div>
